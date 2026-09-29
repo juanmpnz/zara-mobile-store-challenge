@@ -176,9 +176,15 @@ Evidence labels used throughout:
 - Keep selection state local to the detail feature. Remote product data remains in TanStack Query, product identity remains in the route, and only a complete purchase snapshot is sent to CartContext.
 - Preserve the supplied mobile reading order in DOM order so visual reflow does not create a keyboard or screen-reader mismatch.
 
+**Implementation inference**
+
+- The upper detail section changes to two columns from `48rem`, when a `300px` minimum configurator and the image can coexist without crowding.
+- The image frame uses a stable `20rem`–`30rem` mobile height and `24rem`–`34rem` wider height so color changes cannot resize the hero. The image remains contained within that frame.
+- The desktop configurator is capped at `25rem`; its Add action still fills the configurator width.
+
 **Unmeasured**
 
-- Column ratio, image bounds, detail gaps, and section spacing are deferred.
+- Exact reference values for column ratio, image bounds, detail gaps, and section spacing remain unmeasured.
 
 ## 8. Variant controls
 

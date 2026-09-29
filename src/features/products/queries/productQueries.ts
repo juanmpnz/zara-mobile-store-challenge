@@ -9,8 +9,10 @@ import {
   normalizeProductsParams,
   type GetProductsParams,
 } from '@/features/products/api/productsApi';
+import { ApiError } from '@/lib/api/ApiError';
 
 const PRODUCT_STALE_TIME = 5 * 60 * 1000;
+const PRODUCT_DETAIL_MAX_RETRIES = 1;
 
 export const productKeys = {
   all: ['products'] as const,
@@ -36,6 +38,10 @@ export function productQueryOptions(productId: string) {
   return queryOptions({
     queryKey: productKeys.detail(productId),
     queryFn: ({ signal }) => getProductById(productId, { signal }),
+    retry: (failureCount, error) =>
+      !(error instanceof ApiError && error.status === 404) &&
+      failureCount < PRODUCT_DETAIL_MAX_RETRIES,
+    retryDelay: 250,
     staleTime: PRODUCT_STALE_TIME,
   });
 }

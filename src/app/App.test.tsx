@@ -61,15 +61,16 @@ test('shows the design-system validation page', async () => {
   ).toBeVisible();
 });
 
-test('shows product detail and the product identity from its URL', async () => {
+test('shows API-backed product detail for the product identity in its URL', async () => {
   renderRoute('/products/abc-123');
 
   expect(
-    await screen.findByRole('heading', { name: 'Product detail', level: 1 }),
+    await screen.findByRole('heading', { name: 'Example Phone', level: 1 }),
   ).toBeVisible();
-  expect(
-    screen.getByText('Product ID: abc-123', { exact: true }),
-  ).toBeVisible();
+  expect(screen.getByRole('link', { name: 'BACK' })).toHaveAttribute(
+    'href',
+    '/',
+  );
 });
 
 test('shows the not-found heading for an unknown URL', async () => {

@@ -1,0 +1,18 @@
+.section {
+  display: grid;
+  gap: 1rem;
+}
+.label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.35;
+}
+.group {
+  flex-wrap: wrap;
+}
+.option {
+  min-width: 5.9375rem;
+  min-height: 4.0625rem;
+  padding: 1rem;
+}

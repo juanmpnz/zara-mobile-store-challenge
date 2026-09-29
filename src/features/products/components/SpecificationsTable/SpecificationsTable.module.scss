@@ -1,0 +1,39 @@
+.section {
+  display: grid;
+  gap: 2rem;
+}
+.heading {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.list {
+  margin: 0;
+  border-top: var(--border-thin) solid var(--color-border);
+}
+.row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 1fr) minmax(0, 2fr);
+  gap: 3rem;
+  padding-block: 1rem;
+  border-bottom: var(--border-thin) solid var(--color-border);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.row dt,
+.row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 30rem) {
+  .row {
+    gap: 1rem;
+    grid-template-columns: minmax(6rem, 0.8fr) minmax(0, 1.2fr);
+  }
+}
