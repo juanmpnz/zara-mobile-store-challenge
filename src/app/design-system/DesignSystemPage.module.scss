@@ -1,0 +1,220 @@
+.page {
+  display: grid;
+  gap: 64px;
+  min-width: 0;
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 32px 0 80px;
+}
+
+.intro {
+  display: grid;
+  gap: 12px;
+  max-width: 720px;
+}
+
+.eyebrow,
+.index,
+.specimenLabel {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-transform: uppercase;
+}
+
+.rowLabel {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  text-transform: uppercase;
+}
+
+.eyebrow,
+.index,
+.rowLabel,
+.specimenLabel,
+.lede,
+.typeDetails dt {
+  color: var(--color-foreground-muted);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.lede {
+  max-width: 52ch;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.section {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+  padding-top: 24px;
+  border-top: var(--border-thin) solid var(--color-border);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+}
+
+.typographyGrid,
+.componentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 32px;
+}
+
+.typeSpecimen,
+.example {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.specimen {
+  margin: 0;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.alphabet {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.typeDetails {
+  margin: 0;
+
+  div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.4fr) 1fr;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: var(--border-thin) solid var(--color-border-disabled);
+  }
+
+  dt,
+  dd {
+    margin: 0;
+  }
+}
+
+.buttonTable {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.buttonRow {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.6fr) repeat(4, minmax(7.25rem, 1fr));
+  gap: 16px;
+  align-items: center;
+  min-width: 740px;
+}
+
+.buttonGroup {
+  display: grid;
+  gap: 16px;
+  min-width: 740px;
+}
+
+.feedbackLabel,
+.columnLabel {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-control);
+  letter-spacing: var(--letter-spacing-control);
+  text-transform: uppercase;
+}
+
+.feedbackLabel {
+  padding-bottom: 8px;
+  border-bottom: var(--border-thin) solid var(--color-border-disabled);
+}
+
+.columnLabel {
+  color: var(--color-foreground-muted);
+}
+
+.figmaButton {
+  width: min(100%, 116px);
+
+  &[data-feedback='primary'][data-preview-state='hover'] {
+    background-color: var(--color-action-primary-hover);
+  }
+
+  &[data-feedback='primary'][data-preview-state='active'] {
+    background-color: var(--color-action-primary-active);
+  }
+
+  &[data-feedback='secondary'][data-preview-state='hover'] {
+    border-color: var(--color-border-hover);
+  }
+
+  &[data-feedback='secondary'][data-preview-state='active'] {
+    border-color: var(--color-border-active);
+  }
+}
+
+.searchReference {
+  width: min(100%, 300px);
+}
+
+.storageOption {
+  width: 95px;
+  height: 65px;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-control);
+}
+
+.productGridExample {
+  min-width: 0;
+}
+
+@media (max-width: 48rem) {
+  .page {
+    gap: 48px;
+    padding-top: 16px;
+  }
+
+  .buttonTable {
+    padding-bottom: 8px;
+  }
+}

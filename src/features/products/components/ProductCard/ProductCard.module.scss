@@ -1,0 +1,153 @@
+.card {
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: var(--color-background);
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-none);
+  box-shadow: none;
+}
+
+.link,
+.content {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 24px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  overflow: hidden;
+  color: var(--color-foreground);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.link {
+  isolation: isolate;
+  transition: color 300ms ease-in;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: '';
+    background-color: var(--color-action-primary);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 300ms ease-in;
+  }
+
+  &:hover,
+  &:focus-visible,
+  .card:focus-within & {
+    color: var(--color-action-primary-text);
+    transition-timing-function: ease-out;
+  }
+
+  &:hover::before,
+  &:focus-visible::before,
+  .card:focus-within &::before {
+    transform: scaleY(1);
+    transition-timing-function: ease-out;
+  }
+
+  &:focus-visible {
+    z-index: 1;
+    outline: 2px solid var(--color-action-primary-text);
+    outline-offset: -3px;
+  }
+}
+
+.imageArea {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.imageFallback {
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-control);
+  color: currentColor;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.metadata {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0;
+  min-width: 0;
+}
+
+.brand,
+.name,
+.price {
+  margin: 0;
+}
+
+.brand {
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: var(--font-weight-light);
+  line-height: 12px;
+  letter-spacing: 0;
+  color: currentColor;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.65;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-control-gap);
+  align-items: baseline;
+}
+
+.name,
+.price {
+  font-size: var(--font-size-control);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-control);
+  text-transform: uppercase;
+}
+
+.name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price {
+  text-align: end;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .link::before {
+    transition: none;
+  }
+}

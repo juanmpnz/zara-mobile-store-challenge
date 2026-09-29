@@ -4,8 +4,12 @@ import {
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router';
-import { expect, test } from 'vitest';
+import { afterEach, beforeEach, expect, test } from 'vitest';
+import { CartProvider } from '@/features/cart/context/CartProvider';
 import { routeTree } from '@/routeTree.gen';
+
+beforeEach(() => localStorage.clear());
+afterEach(() => localStorage.clear());
 
 function renderRoute(path: string) {
   const router = createRouter({
@@ -13,7 +17,11 @@ function renderRoute(path: string) {
     history: createMemoryHistory({ initialEntries: [path] }),
   });
 
-  return render(<RouterProvider router={router} />);
+  return render(
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>,
+  );
 }
 
 test('shows the catalog heading at the index URL', async () => {
@@ -32,6 +40,18 @@ test('shows the cart heading at the cart URL', async () => {
 
   expect(
     await screen.findByRole('heading', { name: 'Cart', level: 1 }),
+  ).toBeVisible();
+});
+
+test('shows the design-system validation page', async () => {
+  renderRoute('/dsystem');
+
+  expect(
+    await screen.findByRole('heading', { name: 'Design system', level: 1 }),
+  ).toBeVisible();
+  expect(screen.getByRole('heading', { name: 'Typography' })).toBeVisible();
+  expect(
+    screen.getByRole('radiogroup', { name: 'Storage size' }),
   ).toBeVisible();
 });
 

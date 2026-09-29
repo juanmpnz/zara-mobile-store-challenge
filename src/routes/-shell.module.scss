@@ -1,9 +1,10 @@
 .shell {
-  padding: 2rem 1rem;
+  min-width: 0;
+  min-height: 100vh;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
 }
 
-.links {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+.main {
+  min-width: 0;
 }

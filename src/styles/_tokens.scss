@@ -1,0 +1,37 @@
+:root {
+  --font-family-base: Helvetica, Arial, sans-serif;
+  --font-size-control: 12px;
+  --font-size-label: 14px;
+  --font-weight-light: 300;
+  --line-height-control: 16px;
+  --line-height-label: 1;
+  --letter-spacing-control: 0.08em;
+  --letter-spacing-label: 0;
+
+  --color-background: #fff;
+  --color-foreground: #1b1a18;
+  --color-foreground-muted: #6b6966;
+  --color-border: #1b1a18;
+  --color-border-hover: rgba(40, 38, 36, 1);
+  --color-border-active: rgba(54, 51, 49, 1);
+  --color-border-disabled: rgba(219, 217, 215, 1);
+  --color-action-primary: rgba(27, 26, 24, 1);
+  --color-action-primary-hover: rgba(40, 38, 36, 1);
+  --color-action-primary-active: rgba(54, 51, 49, 1);
+  --color-action-primary-text: rgba(255, 255, 255, 1);
+  --color-action-disabled: rgba(27, 26, 24, 0.04);
+  --color-action-disabled-text: rgba(27, 26, 24, 0.2);
+  --color-danger: #b42318;
+  --color-focus: #1b1a18;
+
+  --border-thin: 0.5px;
+  --border-selection: 1px;
+  --radius-none: 0;
+
+  --control-height-small: 40px;
+  --control-height-medium: 48px;
+  --control-height-large: 56px;
+  --space-small: 4px;
+  --space-control: 8px;
+  --space-control-gap: 12px;
+}

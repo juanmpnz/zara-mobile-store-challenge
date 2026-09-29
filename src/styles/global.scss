@@ -1,11 +1,37 @@
+@use './tokens';
+
 * {
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  color: var(--color-foreground);
+  background-color: var(--color-background);
 }
 
 body {
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  color: #111;
-  background-color: #fff;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

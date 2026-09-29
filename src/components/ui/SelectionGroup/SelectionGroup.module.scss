@@ -1,0 +1,37 @@
+.root {
+  display: flex;
+  gap: var(--space-control-gap);
+
+  &[data-orientation='vertical'] {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.item {
+  position: relative;
+  margin: 0;
+  padding: var(--space-small) var(--space-control);
+  font: inherit;
+  color: var(--color-foreground);
+  background: transparent;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-none);
+  box-shadow: none;
+  cursor: pointer;
+
+  &[data-state='checked'] {
+    border-width: var(--border-selection);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  &[data-disabled] {
+    color: var(--color-action-disabled-text);
+    border-color: var(--color-border-disabled);
+    cursor: not-allowed;
+  }
+}

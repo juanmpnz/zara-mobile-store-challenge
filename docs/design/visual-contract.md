@@ -1,10 +1,11 @@
 # Visual contract
 
-This contract records the visual observations supplied with the challenge phase. It guides later UI work; it does not define production components or measured design values.
+This contract records the visual observations supplied with the challenge and the component values later measured directly in Figma. It guides UI work without turning reference-instance widths into fixed production layout rules.
 
 Evidence labels used throughout:
 
 - **Observed in the supplied specification**: explicitly described from the supplied prototype references.
+- **Measured from Figma**: read directly from a supplied component property; this is design evidence for that component.
 - **Inferred/proposed**: an implementation direction needed to preserve the observed behavior; it must be verified during UI work.
 - **Unmeasured**: a visual value that cannot be recovered from the supplied written observations and remains intentionally undecided.
 
@@ -26,6 +27,13 @@ Evidence labels used throughout:
 
 - Exact font sizes, line heights, letter spacing, and weights require visual comparison during implementation.
 
+**Measured from Figma — Button label**
+
+- The supplied component uses Helvetica Neue Light at `12px`, `16px` line height, `300` weight, `8%` letter spacing, centered and uppercase.
+- Production retains the challenge-mandated `Helvetica, Arial, sans-serif` stack without loading a custom font; the measured size, weight, line height, tracking, alignment, and case are applied to Button labels.
+- `Light/Content/Inverse` resolves to `rgba(255, 255, 255, 1)`, which is used explicitly for primary Button text.
+- The measured option label uses `14px`, `300` weight, `100%` line height, `0%` letter spacing, black text, and uppercase treatment.
+
 ## 2. Color language
 
 **Observed in the supplied specification**
@@ -43,10 +51,17 @@ Evidence labels used throughout:
 - Define a small semantic token set: background, foreground, muted foreground, border, disabled surface, disabled text, primary action surface, primary action text, and destructive foreground.
 - Validate every foreground/surface pairing for sufficient contrast before implementation is accepted.
 - Treat each product color hex value as domain data for its swatch, not as a global design token.
+- Visual comparison with the supplied disabled Button instances uses a `4%` near-black wash for the disabled Primary surface and `20%` near-black for disabled text. Disabled Standard remains transparent with its measured neutral border; disabled Primary has no visible border.
+
+**Measured from Figma**
+
+- Primary/default is `rgba(27, 26, 24, 1)`; hover is `rgba(40, 38, 36, 1)`; active is `rgba(54, 51, 49, 1)`.
+- The disabled standard border is `rgba(219, 217, 215, 1)`.
+- White action text follows the supplied primary treatment. Muted foreground, disabled surface/text, danger red, and the focus color remain implementation-inferred values.
 
 **Unmeasured**
 
-- Exact color values are deferred. The current `#fff` and `#111` global baseline are implementation facts, not proof of every final token value.
+- Exact muted foreground, disabled surface/text, danger, and focus values were not measured. Their current token values are implementation inferences and can be tuned during visual verification.
 
 ## 3. Borders, radius, and shadows
 
@@ -56,6 +71,11 @@ Evidence labels used throughout:
 - Corners have zero radius.
 - Surfaces do not use shadows.
 - Product cards visually share borders with adjacent cards rather than appearing as separate floating tiles.
+
+**Measured from Figma**
+
+- Standard controls and the search underline use a `0.5px` border.
+- The selected storage reference uses a `1px` border.
 
 **Inferred/proposed**
 
@@ -78,10 +98,16 @@ Evidence labels used throughout:
 
 - Treat the brand as navigation to the catalog and the cart control as navigation to the cart, using semantic links with accessible names.
 - Let the header adapt its spacing without changing its simple two-ended composition.
+- No official logo or bag asset currently exists in the repository. The implemented Header therefore uses an `MBST` text mark and a minimal owned inline bag SVG as explicit temporary fallbacks.
 
 **Unmeasured**
 
-- Header height, logo dimensions, icon size, and horizontal gutters are deferred.
+- Logo dimensions, icon size, and wider-layout header measurements are deferred.
+
+**Measured from Figma for future Header work**
+
+- The mobile reference instance is `393px` wide and `80px` high, with horizontal flow, `space-between`, and `24px 16px` vertical/horizontal padding.
+- The `393px` width describes the measured reference instance. It is not a production fixed width or breakpoint.
 
 ## 5. Catalog and search
 
@@ -93,6 +119,11 @@ Evidence labels used throughout:
 - The result count appears below the field and reports the actual returned data length.
 - Search results use the same catalog presentation and ProductCard language as the unfiltered catalog.
 
+**Measured from Figma**
+
+- The search reference is `27px` high, with a `0.5px` bottom border, `8px` bottom padding, and `12px` internal gap.
+- Its `300px` reference width describes the Figma instance only. Production SearchInput is fluid and fills its parent.
+
 **Inferred/proposed**
 
 - The clear affordance should be a separately named button associated visually with the native search field.
@@ -101,7 +132,7 @@ Evidence labels used throughout:
 
 **Unmeasured**
 
-- Search vertical spacing, underline color, clear-icon dimensions, and result-label typography are deferred.
+- Spacing between search and surrounding catalog content, clear-icon dimensions, and result-label typography are deferred.
 
 ## 6. Product cards
 
@@ -116,6 +147,15 @@ Evidence labels used throughout:
 
 - Use one ProductCard presentation for the catalog, search results, and similar-product rail. Layout context may control width, but must not create a second visual implementation or product model.
 - Represent navigation with one router link whose accessible name combines useful product identity and price information without duplicating nested interactive elements.
+- ProductCard uses a `300ms` vertical wipe: a near-black layer scales from the bottom edge to the top with `ease-out`, and retracts downward with `ease-in`. Hover and keyboard focus share the same treatment, while reduced-motion preference removes the transition.
+- EUR display is centralized as `<price> EUR`. EUR comes from the challenge UI; the API provides no currency metadata.
+
+**Measured from Figma — ProductCard reference instance**
+
+- The supplied reference instance is square at `344px` by `344px`.
+- It uses a `0.5px` border, `16px` internal padding, and a `24px` vertical gap between product imagery and metadata.
+- The production card preserves the square ratio while remaining width-fluid; `344px` is an instance measurement, not a fixed production width.
+- Brand, product name, and price are uppercase. Name and price share one baseline, and an overlong product name truncates with an ellipsis rather than pushing the price.
 
 **Unmeasured**
 
@@ -152,13 +192,18 @@ Evidence labels used throughout:
 
 **Inferred/proposed**
 
-- Storage and color are each single-selection, radio-like groups. A project-owned selection primitive backed by Radix Radio Group is justified if its future approved version supplies the required keyboard and focus semantics.
+- Storage and color are each single-selection, radio-like groups. The implemented project-owned SelectionGroup encapsulates Radix RadioGroup keyboard and focus semantics for those future feature controls.
 - The Add action uses a native disabled button through the project Button component. It does not need Radix.
 - Focus, selected, disabled, hover, and active states must remain distinguishable without changing layout.
 
+**Measured from Figma**
+
+- Buttons expose measured `40px`, `48px`, and `56px` heights. Their matching vertical/horizontal padding is `3px 7px`, `4px 7px`, and `5px 7px` respectively. The `116px` reference width is Hug content and is not fixed in production.
+- The selected storage reference is `95px` by `65px` with a `1px` border. These values inform the future StorageSelector; SelectionGroup itself stays feature-neutral.
+
 **Unmeasured**
 
-- Option dimensions, swatch size, selected border weight/color, control gaps, and button height are deferred. Native radio inputs remain a valid implementation if they meet the same visual, keyboard, focus, and labeling contract without Radix.
+- Color-swatch size, selector gaps, and selected emphasis beyond the measured storage border remain deferred. Feature controls will compose the project SelectionGroup rather than import Radix directly.
 
 ## 9. Specifications
 
@@ -169,6 +214,11 @@ Evidence labels used throughout:
 - Mobile retains the conceptual two-column row structure in a compressed layout; long values wrap without horizontal overflow.
 - The section has no card or shadow treatment.
 
+**Measured from Figma for future SpecificationsTable work**
+
+- A row reference is `47px` high with `16px` vertical padding, a `48px` column gap, and a `0.5px` bottom border.
+- Its `600px` width is an instance measurement and must not become a fixed production width.
+
 **Inferred/proposed**
 
 - Use semantic description-list or table markup after checking which best represents the final content relationships; styling must preserve accessible name/value associations.
@@ -176,7 +226,7 @@ Evidence labels used throughout:
 
 **Unmeasured**
 
-- Column proportions, row padding, and separator color are deferred.
+- Responsive column proportions and separator color are deferred.
 
 ## 10. Similar products
 
@@ -295,8 +345,14 @@ These inconsistencies are reference defects, not business rules. Actual domain d
 | Grid | 1 → 2 → 5 columns | Mobile-first layout states triggered by available content space | Numeric breakpoints and gutters |
 | Detail | Stacked mobile; two-column upper section when wider | Preserve mobile order in DOM; local selection state | Column ratio and image bounds |
 | Cart | Compact mobile; wider horizontal composition | Reflow actions when content requires it | Thresholds and positioning |
-| Selection | Rectangular storage options and square color swatches; keyboard accessible | Project-owned radio-like primitive; Radix only if later approved | Dimensions and selected styling values |
+| Selection | Rectangular storage options and square color swatches; keyboard accessible | Implemented project-owned SelectionGroup backed by Radix RadioGroup | Feature-specific dimensions and swatch styling |
 | Cards | One bordered, image-led language in catalog, search, and similar items | One shared ProductCard implementation | Image ratio and internal spacing |
 | Similar rail | Horizontal overflow and subtle bottom indicator | Native scrolling; indicator reflects real position if implemented | Snapping and indicator mechanics |
 
-Global styles should remain limited to reset/normalization, body/root baseline, the mandatory font family, and truly global tokens. Component-specific selectors belong in colocated SCSS Modules. The intended token categories are typography; semantic colors; content width/gutters/major vertical spacing; a visually 1px border and zero radius; and a short spacing set for small, control, section, and page-level use. Exact values remain deferred until the UI can be compared with the supplied references.
+Global styles remain limited to reset/normalization, body/root baseline, the mandatory font family, and truly global tokens. Component-specific selectors belong in colocated SCSS Modules. The implemented token layer contains only the mandatory font stack, measured control heights and borders, current semantic colors, and the small spacing values required by the primitives. Muted, disabled, danger, and focus colors are explicitly implementation-inferred. The first production composition now establishes the inferred PageContainer gutters and ProductGrid breakpoints documented below; other page spacing and layout thresholds remain deferred.
+
+**Implementation inference — production ProductGrid and PageContainer**
+
+- ProductGrid uses one column by default, two columns from `48rem`, and five columns from `75rem`. These thresholds were selected from usable card width and are not Figma measurements.
+- Every track uses `minmax(0, 1fr)`, and the grid remains width-fluid without intentional horizontal scrolling. At intermediate desktop widths below `75rem`, it retains two columns instead of forcing cramped cards.
+- PageContainer uses `1rem`, `2rem`, and `2.5rem` horizontal gutters at the same layout thresholds and a wide `120rem` content ceiling so a five-column catalog can use most of a large viewport.
