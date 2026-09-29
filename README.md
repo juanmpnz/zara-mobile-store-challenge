@@ -34,4 +34,4 @@ npm run dev
 
 ## Architecture and status
 
-`src/main.tsx` mounts the typed router within the TanStack Query provider. API configuration, transport, external DTO validation, domain mapping, and feature query hooks have explicit boundaries. Component styles and tests are colocated, and document defaults live in `src/styles/global.scss`. The current UI still contains neutral catalog, product-detail, and cart placeholders.
+`src/main.tsx` composes the TanStack Query provider, cart provider, and typed router. API configuration, transport, external DTO validation, domain mapping, and feature query hooks have explicit boundaries. The cart uses isolated React Context state with defensive versioned localStorage persistence. Component styles and tests are colocated, and document defaults live in `src/styles/global.scss`. The current UI still contains neutral catalog, product-detail, and cart placeholders.
