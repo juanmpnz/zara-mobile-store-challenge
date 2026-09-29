@@ -1,4 +1,4 @@
-import type { CartLine } from '../model/cart';
+import type { CartLine } from '@/features/cart/model/cart';
 
 const CART_STORAGE_KEY = 'zara-mobile-store:cart:v1';
 const CART_STORAGE_VERSION = 1;

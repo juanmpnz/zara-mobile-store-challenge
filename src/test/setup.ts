@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { afterAll, afterEach, beforeAll, vi } from 'vitest';
-import { testApiUrl } from './msw/handlers';
-import { server } from './msw/server';
+import { testApiUrl } from '@/test/msw/handlers';
+import { server } from '@/test/msw/server';
 
 vi.stubEnv('VITE_API_BASE_URL', testApiUrl);
 vi.stubEnv('VITE_API_KEY', 'test-api-key');

@@ -4,7 +4,7 @@ import {
   getProducts,
   normalizeProductsParams,
   type GetProductsParams,
-} from '../api/productsApi';
+} from '@/features/products/api/productsApi';
 
 const PRODUCT_STALE_TIME = 5 * 60 * 1000;
 

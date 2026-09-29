@@ -4,7 +4,7 @@ import {
   useContext,
   type PropsWithChildren,
 } from 'react';
-import type { AddCartItem, CartLine } from '../model/cart';
+import type { AddCartItem, CartLine } from '@/features/cart/model/cart';
 
 export interface CartStateValue {
   items: readonly CartLine[];

@@ -1,5 +1,5 @@
 import { afterEach, expect, test, vi } from 'vitest';
-import { testApiUrl } from '../test/msw/handlers';
+import { testApiUrl } from '@/test/msw/handlers';
 
 afterEach(() => {
   vi.stubEnv('VITE_API_BASE_URL', testApiUrl);

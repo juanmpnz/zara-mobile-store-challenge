@@ -33,6 +33,17 @@ export default tseslint.config(
     plugins: { 'react-hooks': reactHooks, 'react-refresh': reactRefresh },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '(^|/)\\.\\.(/|$)',
+              message: 'Use @/ for imports outside the current directory.',
+            },
+          ],
+        },
+      ],
       'react-refresh/only-export-components': [
         'error',
         { allowConstantExport: true },

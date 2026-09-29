@@ -12,8 +12,8 @@ import {
   selectCartTotal,
   type AddCartItem,
   type CartState,
-} from '../model/cart';
-import { loadCart, saveCart } from '../storage/cartStorage';
+} from '@/features/cart/model/cart';
+import { loadCart, saveCart } from '@/features/cart/storage/cartStorage';
 import {
   CartContextBoundary,
   type CartActionsValue,

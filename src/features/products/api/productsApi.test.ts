@@ -1,12 +1,12 @@
 import { http, HttpResponse } from 'msw';
 import { expect, test } from 'vitest';
-import { ApiError } from '../../../lib/api/ApiError';
-import { server } from '../../../test/msw/server';
+import { ApiError } from '@/lib/api/ApiError';
+import { server } from '@/test/msw/server';
 import {
   productDetailFixture,
   productSummaryFixture,
   testApiUrl,
-} from '../../../test/msw/handlers';
+} from '@/test/msw/handlers';
 import { getProductById, getProducts } from './productsApi';
 
 test('sends configured authentication and list parameters, and maps the response', async () => {

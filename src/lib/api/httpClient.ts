@@ -1,4 +1,4 @@
-import { appEnvironment } from '../../config/env';
+import { appEnvironment } from '@/config/env';
 import { ApiError } from './ApiError';
 
 type QueryValue = string | number | boolean | undefined;

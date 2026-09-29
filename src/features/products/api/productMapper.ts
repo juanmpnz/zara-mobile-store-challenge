@@ -11,7 +11,7 @@ import type {
   ProductSpecifications,
   ProductStorage,
   ProductSummary,
-} from '../model/product';
+} from '@/features/products/model/product';
 
 export function mapProductSummary(dto: ProductSummaryDto): ProductSummary {
   return {

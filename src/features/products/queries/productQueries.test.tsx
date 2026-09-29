@@ -3,8 +3,8 @@ import { cleanup, renderHook, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import type { PropsWithChildren } from 'react';
 import { afterEach, beforeEach, expect, test } from 'vitest';
-import { server } from '../../../test/msw/server';
-import { productSummaryFixture, testApiUrl } from '../../../test/msw/handlers';
+import { server } from '@/test/msw/server';
+import { productSummaryFixture, testApiUrl } from '@/test/msw/handlers';
 import {
   productKeys,
   productsQueryOptions,

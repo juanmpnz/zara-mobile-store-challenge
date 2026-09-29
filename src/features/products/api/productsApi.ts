@@ -1,5 +1,8 @@
-import { apiRequest } from '../../../lib/api/httpClient';
-import type { ProductDetail, ProductSummary } from '../model/product';
+import { apiRequest } from '@/lib/api/httpClient';
+import type {
+  ProductDetail,
+  ProductSummary,
+} from '@/features/products/model/product';
 import { parseProductDetailDto, parseProductSummaryDtos } from './productDtos';
 import { mapProductDetail, mapProductSummary } from './productMapper';
 

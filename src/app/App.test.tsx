@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from '@tanstack/react-router';
 import { expect, test } from 'vitest';
-import { routeTree } from '../routeTree.gen';
+import { routeTree } from '@/routeTree.gen';
 
 function renderRoute(path: string) {
   const router = createRouter({
