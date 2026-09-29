@@ -4,7 +4,7 @@ A responsive mobile phone catalog frontend challenge. This repository currently 
 
 ## Stack
 
-React 18, TypeScript, Vite 6, TanStack Router v1, SCSS Modules, ESLint 9, Prettier, Vitest 3, and React Testing Library with jsdom.
+React 18, TypeScript, Vite 6, TanStack Router v1, TanStack Query v5, SCSS Modules, ESLint 9, Prettier, Vitest 3, React Testing Library with jsdom, and MSW for API tests.
 
 ## Setup
 
@@ -34,4 +34,4 @@ npm run dev
 
 ## Architecture and status
 
-`src/main.tsx` mounts the typed router; `src/app/App.tsx` supplies the catalog heading. Component styles and tests are colocated, and document defaults live in `src/styles/global.scss`. The current UI contains typed catalog, product-detail, and cart routes with neutral placeholders. Product functionality, server and client state, and API access are not implemented.
+`src/main.tsx` mounts the typed router within the TanStack Query provider. API configuration, transport, external DTO validation, domain mapping, and feature query hooks have explicit boundaries. Component styles and tests are colocated, and document defaults live in `src/styles/global.scss`. The current UI still contains neutral catalog, product-detail, and cart placeholders.
