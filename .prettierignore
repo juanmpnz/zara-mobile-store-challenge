@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+src/routeTree.gen.ts
+# Preserve the existing engineering harness.
+AGENTS.md
+PLANS.md
+.codex/
+.agents/
+docs/

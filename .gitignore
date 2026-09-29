@@ -1,0 +1,19 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+
+# Keep the private AI harness and engineering playbook local.
+/.agents/
+/.codex/
+/AGENTS.md
+/PLANS.md
+/docs/architecture/
+/docs/decisions/
+/docs/plans/
+/docs/quality/
