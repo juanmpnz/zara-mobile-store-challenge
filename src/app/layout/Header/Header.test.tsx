@@ -53,6 +53,9 @@ test('links home and cart with an accessible empty count', async () => {
   expect(
     await screen.findByRole('link', { name: 'MBST home' }),
   ).toHaveAttribute('href', '/');
+  expect(
+    screen.getByRole('link', { name: 'MBST home' }).querySelector('img'),
+  ).toBeInTheDocument();
   expect(screen.getByRole('link', { name: 'Cart, 0 items' })).toHaveAttribute(
     'href',
     '/cart',

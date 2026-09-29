@@ -47,6 +47,22 @@ test('emits typed values and displays the controlled value', async () => {
   expect(onChange).toHaveBeenLastCalledWith('Phone');
 });
 
+test('shows its focus indicator only when reached with Tab', async () => {
+  const user = userEvent.setup();
+  render(<SearchHarness />);
+  const input = screen.getByRole('searchbox', { name: 'Search phones' });
+
+  await user.click(input);
+  expect(input).not.toHaveAttribute('data-keyboard-focus');
+
+  await user.tab({ shift: true });
+  await user.tab();
+  expect(input).toHaveAttribute('data-keyboard-focus', 'true');
+
+  await user.click(input);
+  expect(input).not.toHaveAttribute('data-keyboard-focus');
+});
+
 test('clears a filled search through its handler and restores input focus', async () => {
   const user = userEvent.setup();
   const onChange = vi.fn();

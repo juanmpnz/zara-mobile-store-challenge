@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import mbstLogo from '@/assets/mbst-logo.svg';
 import { useCartState } from '@/features/cart/context/cartContext';
 import { PageContainer } from '@/app/layout/PageContainer/PageContainer';
 
@@ -12,7 +13,7 @@ export function Header() {
     <header className={styles.header}>
       <PageContainer className={styles.inner}>
         <Link className={styles.brand} to="/" aria-label="MBST home">
-          MBST
+          <img className={styles.logo} src={mbstLogo} alt="" />
         </Link>
         <nav aria-label="Cart navigation">
           <Link

@@ -4,6 +4,7 @@ import {
   createRouter,
   RouterProvider,
 } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { afterEach, beforeEach, expect, test } from 'vitest';
 import { CartProvider } from '@/features/cart/context/CartProvider';
 import { routeTree } from '@/routeTree.gen';
@@ -12,24 +13,29 @@ beforeEach(() => localStorage.clear());
 afterEach(() => localStorage.clear());
 
 function renderRoute(path: string) {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [path] }),
   });
 
   return render(
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>,
+    <QueryClientProvider client={queryClient}>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </QueryClientProvider>,
   );
 }
 
-test('shows the catalog heading at the index URL', async () => {
+test('shows the product catalog at the index URL', async () => {
   renderRoute('/');
 
   expect(
     await screen.findByRole('heading', {
-      name: 'Zara Mobile Store Challenge',
+      name: 'Products',
       level: 1,
     }),
   ).toBeVisible();

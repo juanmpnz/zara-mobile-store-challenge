@@ -1,4 +1,8 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  queryOptions,
+  useQuery,
+} from '@tanstack/react-query';
 import {
   getProductById,
   getProducts,
@@ -23,6 +27,7 @@ export function productsQueryOptions(params: GetProductsParams = {}) {
   return queryOptions({
     queryKey: productKeys.list(normalized),
     queryFn: ({ signal }) => getProducts(normalized, { signal }),
+    placeholderData: keepPreviousData,
     staleTime: PRODUCT_STALE_TIME,
   });
 }

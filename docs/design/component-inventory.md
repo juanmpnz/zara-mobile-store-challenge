@@ -10,7 +10,8 @@ This inventory describes the smallest supported component set for UI work. Input
 - **PageContainer** is implemented as the width-fluid structural boundary for shared page gutters and a wide desktop content limit.
 - **Header** is implemented with typed home/cart links, the real CartContext item count, an accessible count-aware cart name, an `MBST` text fallback, and a project-owned bag SVG.
 - **ProductCard** is implemented as the shared domain-model presentation with typed detail navigation, centralized EUR display, safe optional-field fallbacks, and inverted hover/keyboard-focus treatment.
-- **ProductGrid** is implemented as a semantic list with one-, two-, and five-column responsive composition and no data-fetching responsibility.
+- **ProductGrid** is implemented as a semantic list with one-, two-, and five-column responsive composition and no data-fetching responsibility. Products without a usable API id remain visible through ProductCard's non-link presentation; a response-local identity with occurrence tracking prevents React collisions without fabricating a server identity or detail URL. Result changes use a restrained 420ms FLIP transition: retained cards preserve their DOM identity and move into the new layout, removed cards fade from an inert visual overlay, returning cards fade in, and the results height interpolates without moving the search or header. Reduced-motion preference bypasses positional and opacity animation.
+- **ProductCatalog** is implemented as the home-page composition for the controlled SearchInput, a 300ms trimmed server search, TanStack Query catalog state, real response count, restrained loading/error/empty feedback, and ProductGrid results. Search remains local UI state; the API and query layers retain request/cache ownership.
 
 Future StorageSelector and ColorSelector components compose SelectionGroup rather than importing Radix directly. Feature presentation and dimensions stay in those future components.
 

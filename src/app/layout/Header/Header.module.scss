@@ -24,10 +24,14 @@
 }
 
 .brand {
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-light);
-  line-height: var(--line-height-label);
-  letter-spacing: 0.16em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  width: 77px;
+  height: 29px;
 }
 
 .cart {

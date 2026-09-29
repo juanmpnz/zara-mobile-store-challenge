@@ -1,8 +1,11 @@
 import {
   forwardRef,
+  useEffect,
   useRef,
+  useState,
   type ChangeEvent,
   type ComponentPropsWithoutRef,
+  type FocusEvent,
   type ForwardedRef,
 } from 'react';
 
@@ -36,6 +39,8 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     {
       className,
       disabled = false,
+      onBlur,
+      onFocus,
       onValueChange,
       placeholder = DEFAULT_PLACEHOLDER,
       readOnly = false,
@@ -46,6 +51,26 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     forwardedRef,
   ) {
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const keyboardTabRef = useRef(false);
+    const [hasKeyboardFocus, setHasKeyboardFocus] = useState(false);
+
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent): void => {
+        keyboardTabRef.current = event.key === 'Tab';
+      };
+      const handlePointerDown = (): void => {
+        keyboardTabRef.current = false;
+        setHasKeyboardFocus(false);
+      };
+
+      window.addEventListener('keydown', handleKeyDown, true);
+      window.addEventListener('pointerdown', handlePointerDown, true);
+
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown, true);
+        window.removeEventListener('pointerdown', handlePointerDown, true);
+      };
+    }, []);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
       onValueChange(event.currentTarget.value);
@@ -54,6 +79,17 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     const handleClear = (): void => {
       onValueChange('');
       inputRef.current?.focus();
+    };
+
+    const handleFocus = (event: FocusEvent<HTMLInputElement>): void => {
+      setHasKeyboardFocus(keyboardTabRef.current);
+      keyboardTabRef.current = false;
+      onFocus?.(event);
+    };
+
+    const handleBlur = (event: FocusEvent<HTMLInputElement>): void => {
+      setHasKeyboardFocus(false);
+      onBlur?.(event);
     };
 
     return (
@@ -71,7 +107,10 @@ export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           placeholder={placeholder}
           disabled={disabled}
           readOnly={readOnly}
+          data-keyboard-focus={hasKeyboardFocus || undefined}
           onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {value.length > 0 && !readOnly ? (
           <button
