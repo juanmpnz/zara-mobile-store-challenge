@@ -111,17 +111,17 @@ npm run preview
 
 ## Available commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Type-check and build production assets |
-| `npm run preview` | Preview the production build |
-| `npm run typecheck` | Run TypeScript validation |
-| `npm run lint` | Run ESLint with zero warnings allowed |
-| `npm run format:check` | Verify Prettier formatting |
-| `npm run test` | Run the test suite |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run check` | Run formatting, lint, types, tests and production build |
+| Command                | Purpose                                                 |
+| ---------------------- | ------------------------------------------------------- |
+| `npm run dev`          | Start the Vite development server                       |
+| `npm run build`        | Type-check and build production assets                  |
+| `npm run preview`      | Preview the production build                            |
+| `npm run typecheck`    | Run TypeScript validation                               |
+| `npm run lint`         | Run ESLint with zero warnings allowed                   |
+| `npm run format:check` | Verify Prettier formatting                              |
+| `npm run test`         | Run the test suite                                      |
+| `npm run test:watch`   | Run tests in watch mode                                 |
+| `npm run check`        | Run formatting, lint, types, tests and production build |
 
 Before submitting changes:
 
@@ -131,18 +131,18 @@ npm run check
 
 ## Routes
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Product catalog and search |
-| `/products/:productId` | Product detail and variant selection |
-| `/cart` | Persistent shopping cart |
-| `/dsystem` | Development visual reference for shared UI |
+| Route                  | Purpose                                    |
+| ---------------------- | ------------------------------------------ |
+| `/`                    | Product catalog and search                 |
+| `/products/:productId` | Product detail and variant selection       |
+| `/cart`                | Persistent shopping cart                   |
+| `/dsystem`             | Development visual reference for shared UI |
 
 Product identity belongs to the URL rather than React state, so product pages support direct links, refreshes and browser navigation.
 
 ## Architecture
 
-The application follows a feature-based modular architecture with explicit ownership of each type of state.
+The application follows a feature-based modular architecture with explicit ownership of each type of state. Routes define navigation, pages compose screens, and components build pages.
 
 ```text
 Route / UI
@@ -181,9 +181,9 @@ Cart count and total are derived rather than persisted.
 
 ### Routing
 
-TanStack Router owns typed routes, product parameters, links, route-level code splitting and not-found handling.
+TanStack Router owns URL declarations, typed route parameters, links, route-level code splitting and not-found handling.
 
-Route files remain thin and compose feature components.
+Route files remain thin and compose feature pages. Feature `pages/` own complete route-level screen composition, while feature `components/` contain focused or reusable UI.
 
 ### API boundary
 
@@ -221,12 +221,14 @@ src/
 ├── features/
 │   ├── cart/
 │   │   ├── components/
+│   │   ├── pages/
 │   │   ├── context/
 │   │   ├── model/
 │   │   └── storage/
 │   └── products/
 │       ├── api/
 │       ├── components/
+│       ├── pages/
 │       ├── model/
 │       ├── presentation/
 │       └── queries/

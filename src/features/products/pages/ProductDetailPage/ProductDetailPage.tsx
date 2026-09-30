@@ -13,9 +13,9 @@ import type { ProductDetail as ProductDetailModel } from '@/features/products/mo
 import { formatPrice } from '@/features/products/presentation/formatPrice';
 import { useProductQuery } from '@/features/products/queries/productQueries';
 
-import styles from './ProductDetail.module.scss';
+import styles from './ProductDetailPage.module.scss';
 
-interface ProductDetailProps {
+interface ProductDetailPageProps {
   productId: string;
 }
 
@@ -86,7 +86,7 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
   );
 }
 
-export function ProductDetail({ productId }: ProductDetailProps) {
+export function ProductDetailPage({ productId }: ProductDetailPageProps) {
   const query = useProductQuery(productId);
 
   if (query.isPending) {

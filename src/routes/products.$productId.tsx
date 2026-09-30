@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ProductDetail } from '@/features/products/components/ProductDetail/ProductDetail';
+import { ProductDetailPage } from '@/features/products/pages/ProductDetailPage/ProductDetailPage';
 
 export const Route = createFileRoute('/products/$productId')({
   component: function ProductDetailRoute() {
     const { productId } = Route.useParams();
-    return <ProductDetail productId={productId} />;
+    return <ProductDetailPage productId={productId} />;
   },
 });

@@ -4,11 +4,11 @@ import { SearchInput } from '@/components/ui/SearchInput/SearchInput';
 import { ProductGrid } from '@/features/products/components/ProductGrid/ProductGrid';
 import { useProductsQuery } from '@/features/products/queries/productQueries';
 
-import styles from './ProductCatalog.module.scss';
+import styles from './ProductCatalogPage.module.scss';
 
 const SEARCH_DEBOUNCE_MS = 300;
 
-export function ProductCatalog() {
+export function ProductCatalogPage() {
   const [searchValue, setSearchValue] = useState('');
   const [search, setSearch] = useState('');
 
