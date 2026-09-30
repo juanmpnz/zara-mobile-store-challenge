@@ -45,7 +45,7 @@ test('shows the cart heading at the cart URL', async () => {
   renderRoute('/cart');
 
   expect(
-    await screen.findByRole('heading', { name: 'Cart', level: 1 }),
+    await screen.findByRole('heading', { name: 'CART (0)', level: 1 }),
   ).toBeVisible();
 });
 

@@ -93,6 +93,7 @@ Evidence labels used throughout:
 - The brand or logo is left aligned; the cart icon and count are right aligned.
 - The header is minimal, with generous horizontal breathing room and no unnecessary navigation links.
 - The displayed cart count comes from actual cart state.
+- The cart uses the outlined bag when empty and the supplied solid bag asset when one or more lines are present.
 
 **Inferred/proposed**
 
@@ -267,6 +268,15 @@ Evidence labels used throughout:
 - Render one CartItem per independent cart line and remove by line ID. Count and total come from CartContext selectors rather than visual assumptions.
 - `Eliminar` is a button because it performs an action; Continue Shopping is a router link because it navigates. Payment behavior remains outside this visual contract.
 - Bottom actions may reflow when their content can no longer remain readable; this is a semantic layout change rather than a device-specific rule.
+
+**Implementation inference**
+
+- The cart uses the mandatory `Helvetica, Arial, sans-serif` stack throughout. The page heading is `20px`; line metadata, price, destructive action, total, and action labels are `12px` with light (`300`) weight.
+- The bottom action area uses normal flex-page flow with `margin-block-start: auto`, so it stays low on short empty and one-line views while multi-line carts extend the document and remain naturally scrollable.
+- Cart lines use a compact image-and-details row by default and increase the image track from `7rem` to `10rem` at `48rem`. The action area changes from a two-column mobile composition to a four-column wide composition at `48rem`.
+- Pay keeps the supplied active visual treatment when the cart has items, while `aria-disabled` and an accessible description communicate that checkout is unavailable in this challenge. Activation performs no checkout, navigation, or state change.
+- A successful Add navigates to `/cart`, where the user can review the persisted selection and return through Continue Shopping.
+- Continue Shopping spans the action row only in the compact mobile empty state; from `48rem` onward it remains in its defined left action column.
 
 **Unmeasured**
 

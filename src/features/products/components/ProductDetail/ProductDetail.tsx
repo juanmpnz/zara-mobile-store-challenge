@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import backArrow from '@/assets/back-arrow.svg';
 import { Button } from '@/components/ui/Button/Button';
@@ -25,6 +25,7 @@ function validPrice(value: number | undefined): value is number {
 
 function ProductDetailContent({ product }: { product: ProductDetailModel }) {
   const { addItem } = useCartActions();
+  const navigate = useNavigate();
   const [storageCapacity, setStorageCapacity] = useState('');
   const [colorName, setColorName] = useState('');
   const storage = product.storageOptions?.find(
@@ -74,6 +75,7 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
       storage: { capacity: storageCapacity },
       unitPrice: selectedPrice,
     });
+    void navigate({ to: '/cart' });
   }
 
   return (

@@ -34,7 +34,7 @@ function renderDetail(productId = 'phone-1') {
   );
 }
 
-test('selects a complete variant and adds exact independent cart-line snapshots', async () => {
+test('adds the selected variant snapshot and navigates to the cart', async () => {
   const user = userEvent.setup();
   renderDetail();
 
@@ -56,29 +56,23 @@ test('selects a complete variant and adds exact independent cart-line snapshots'
   expect(addButton).toBeEnabled();
 
   await user.click(addButton);
-  await user.click(addButton);
-  expect(screen.getByRole('link', { name: 'Cart, 2 items' })).toBeVisible();
+  expect(
+    await screen.findByRole('heading', { name: 'CART (1)' }),
+  ).toBeVisible();
+  expect(screen.getByRole('link', { name: 'Cart, 1 item' })).toBeVisible();
+  expect(screen.getByText('Example Phone')).toBeVisible();
   await waitFor(() => {
     const stored = JSON.parse(
       localStorage.getItem('zara-mobile-store:cart:v1') ?? '{}',
     ) as { items?: unknown[] };
     const items = stored.items as Array<Record<string, unknown>>;
-    expect(items).toHaveLength(2);
-    expect(items[0]?.id).not.toBe(items[1]?.id);
+    expect(items).toHaveLength(1);
     const snapshots = items.map((item) => {
       const snapshot = { ...item };
       delete snapshot.id;
       return snapshot;
     });
     expect(snapshots).toEqual([
-      {
-        productId: 'phone-1',
-        name: 'Example Phone',
-        image: 'https://images.example.test/phone.webp',
-        color: { name: 'Black', hex: '#000000' },
-        storage: { capacity: '256 GB' },
-        unitPrice: 550,
-      },
       {
         productId: 'phone-1',
         name: 'Example Phone',

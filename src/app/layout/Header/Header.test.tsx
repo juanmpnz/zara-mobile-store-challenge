@@ -60,6 +60,9 @@ test('links home and cart with an accessible empty count', async () => {
     'href',
     '/cart',
   );
+  expect(
+    screen.getByRole('link', { name: 'Cart, 0 items' }).querySelector('img'),
+  ).not.toBeInTheDocument();
 });
 
 test('updates singular and plural count names through real cart actions', async () => {
@@ -67,9 +70,9 @@ test('updates singular and plural count names through real cart actions', async 
   renderHeader();
   const add = await screen.findByRole('button', { name: 'Add selection' });
   await user.click(add);
-  expect(screen.getByRole('link', { name: 'Cart, 1 item' })).toHaveTextContent(
-    '1',
-  );
+  const filledCart = screen.getByRole('link', { name: 'Cart, 1 item' });
+  expect(filledCart).toHaveTextContent('1');
+  expect(filledCart.querySelector('img')).toBeInTheDocument();
   await user.click(add);
   expect(screen.getByRole('link', { name: 'Cart, 2 items' })).toHaveTextContent(
     '2',
