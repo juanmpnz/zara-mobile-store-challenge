@@ -14,8 +14,8 @@ interface SpecificationRowProps {
 export function SpecificationRow({ label, value }: SpecificationRowProps) {
   return (
     <div className={styles.row}>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
+      <dt className={styles.term}>{label}</dt>
+      <dd className={styles.description}>{value}</dd>
     </div>
   );
 }

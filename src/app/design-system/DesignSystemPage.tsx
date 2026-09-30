@@ -89,7 +89,9 @@ export function DesignSystemPage() {
       <section className={styles.section} aria-labelledby="typography-title">
         <div className={styles.sectionHeading}>
           <p className={styles.index}>01</p>
-          <h2 id="typography-title">Typography</h2>
+          <h2 id="typography-title" className={styles.sectionTitle}>
+            Typography
+          </h2>
         </div>
         <div className={styles.typographyGrid}>
           <div className={styles.typeSpecimen}>
@@ -102,25 +104,25 @@ export function DesignSystemPage() {
             </p>
           </div>
           <dl className={styles.typeDetails}>
-            <div>
-              <dt>Stack</dt>
-              <dd>Helvetica, Arial, sans-serif</dd>
+            <div className={styles.typeDetail}>
+              <dt className={styles.typeTerm}>Stack</dt>
+              <dd className={styles.typeDescription}>Helvetica, Arial, sans-serif</dd>
             </div>
-            <div>
-              <dt>Control label</dt>
-              <dd>12px / 16px</dd>
+            <div className={styles.typeDetail}>
+              <dt className={styles.typeTerm}>Control label</dt>
+              <dd className={styles.typeDescription}>12px / 16px</dd>
             </div>
-            <div>
-              <dt>Weight</dt>
-              <dd>300</dd>
+            <div className={styles.typeDetail}>
+              <dt className={styles.typeTerm}>Weight</dt>
+              <dd className={styles.typeDescription}>300</dd>
             </div>
-            <div>
-              <dt>Tracking</dt>
-              <dd>8%</dd>
+            <div className={styles.typeDetail}>
+              <dt className={styles.typeTerm}>Tracking</dt>
+              <dd className={styles.typeDescription}>8%</dd>
             </div>
-            <div>
-              <dt>Case</dt>
-              <dd>Uppercase</dd>
+            <div className={styles.typeDetail}>
+              <dt className={styles.typeTerm}>Case</dt>
+              <dd className={styles.typeDescription}>Uppercase</dd>
             </div>
           </dl>
         </div>
@@ -129,15 +131,17 @@ export function DesignSystemPage() {
       <section className={styles.section} aria-labelledby="buttons-title">
         <div className={styles.sectionHeading}>
           <p className={styles.index}>02</p>
-          <h2 id="buttons-title">Button</h2>
+          <h2 id="buttons-title" className={styles.sectionTitle}>
+            Button
+          </h2>
         </div>
         <div className={styles.buttonTable} role="table" aria-label="Button variants">
           <div className={styles.buttonRow} role="row">
             <p className={styles.columnLabel} role="columnheader">
               Feedback / state
             </p>
-            {BUTTON_CONFIGURATIONS.map(({ label }, index) => (
-              <p className={styles.columnLabel} role="columnheader" key={`${label}-${index}`}>
+            {BUTTON_CONFIGURATIONS.map(({ label }) => (
+              <p className={styles.columnLabel} role="columnheader" key={label}>
                 {label}
               </p>
             ))}
@@ -150,14 +154,14 @@ export function DesignSystemPage() {
                   <p className={styles.rowLabel} role="rowheader">
                     {label}
                   </p>
-                  {BUTTON_CONFIGURATIONS.map(({ label: configurationLabel, size }, index) => (
+                  {BUTTON_CONFIGURATIONS.map(({ label: configurationLabel, size }) => (
                     <Button
                       aria-label={`${feedbackLabel}, ${label}, ${configurationLabel}`}
                       className={styles.figmaButton}
                       data-feedback={variant}
                       data-preview-state={previewState}
                       disabled={disabled}
-                      key={`${configurationLabel}-${index}`}
+                      key={configurationLabel}
                       size={size}
                       variant={variant}
                     >
@@ -174,7 +178,9 @@ export function DesignSystemPage() {
       <section className={styles.section} aria-labelledby="search-title">
         <div className={styles.sectionHeading}>
           <p className={styles.index}>03</p>
-          <h2 id="search-title">Search input</h2>
+          <h2 id="search-title" className={styles.sectionTitle}>
+            Search input
+          </h2>
         </div>
         <div className={styles.componentGrid}>
           <div className={`${styles.example} ${styles.searchReference}`}>
@@ -199,7 +205,9 @@ export function DesignSystemPage() {
       <section className={styles.section} aria-labelledby="selection-title">
         <div className={styles.sectionHeading}>
           <p className={styles.index}>04</p>
-          <h2 id="selection-title">Selection group</h2>
+          <h2 id="selection-title" className={styles.sectionTitle}>
+            Selection group
+          </h2>
         </div>
         <div className={styles.componentGrid}>
           <div className={styles.example}>
@@ -233,7 +241,9 @@ export function DesignSystemPage() {
       <section className={styles.section} aria-labelledby="products-title">
         <div className={styles.sectionHeading}>
           <p className={styles.index}>05</p>
-          <h2 id="products-title">Product cards</h2>
+          <h2 id="products-title" className={styles.sectionTitle}>
+            Product cards
+          </h2>
         </div>
         <div className={styles.productGridExample}>
           <ProductGrid products={PRODUCT_FIXTURES} label="Product card visual examples" />

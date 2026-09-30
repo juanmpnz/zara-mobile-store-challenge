@@ -40,15 +40,10 @@
   margin-block-start: 2.5rem;
 }
 
-.hero,
-.detail > section {
+.hero {
   width: 100%;
   max-width: 75rem;
   margin-inline: auto;
-}
-
-.detail > section {
-  margin-block-start: 4rem;
 }
 .configuration {
   display: grid;
@@ -61,8 +56,8 @@
   display: grid;
   gap: 0.75rem;
 }
-.summary h1,
-.summary p {
+.summaryTitle,
+.summaryPrice {
   margin: 0;
   font-size: 20px;
   font-weight: 300;
@@ -78,12 +73,12 @@
   gap: 1.5rem;
   padding-block: 5rem;
 }
-.state h1 {
+.stateTitle {
   margin: 0;
   font-size: 20px;
   font-weight: 300;
 }
-.state a {
+.stateLink {
   color: inherit;
 }
 
@@ -95,8 +90,5 @@
     grid-template-columns: minmax(0, 1fr) minmax(18.75rem, 25rem);
     gap: clamp(3rem, 8vw, 9rem);
     margin-block-start: 3rem;
-  }
-  .detail > section {
-    margin-block-start: 5rem;
   }
 }

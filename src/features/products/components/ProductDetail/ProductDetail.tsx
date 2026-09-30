@@ -70,8 +70,8 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
         <ProductImage image={image} productName={name} colorName={selectedColorImage ? color?.name : undefined} />
         <div className={styles.configuration}>
           <header className={styles.summary}>
-            <h1>{name || 'Unnamed product'}</h1>
-            <p>{displayPrice}</p>
+            <h1 className={styles.summaryTitle}>{name || 'Unnamed product'}</h1>
+            <p className={styles.summaryPrice}>{displayPrice}</p>
           </header>
           <StorageSelector options={product.storageOptions ?? []} value={storageCapacity} onValueChange={setStorageCapacity} />
           <ColorSelector options={product.colors ?? []} value={colorName} onValueChange={setColorName} />
@@ -101,14 +101,16 @@ export function ProductDetail({ productId }: ProductDetailProps) {
     if (query.error instanceof ApiError && query.error.status === 404) {
       return (
         <section className={styles.state}>
-          <h1>Product not found.</h1>
-          <Link to="/">Back to catalog</Link>
+          <h1 className={styles.stateTitle}>Product not found.</h1>
+          <Link className={styles.stateLink} to="/">
+            Back to catalog
+          </Link>
         </section>
       );
     }
     return (
       <section className={styles.state} role="alert">
-        <h1>We could not load this product.</h1>
+        <h1 className={styles.stateTitle}>We could not load this product.</h1>
         <Button variant="secondary" onClick={() => void query.refetch()}>
           Try again
         </Button>

@@ -40,7 +40,7 @@
 .rowLabel,
 .specimenLabel,
 .lede,
-.typeDetails dt {
+.typeTerm {
   color: var(--color-foreground-muted);
 }
 
@@ -71,13 +71,13 @@
   display: flex;
   align-items: baseline;
   gap: 16px;
+}
 
-  h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 300;
-    line-height: 1.2;
-  }
+.sectionTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.2;
 }
 
 .typographyGrid,
@@ -113,19 +113,19 @@
 
 .typeDetails {
   margin: 0;
+}
 
-  div {
-    display: grid;
-    grid-template-columns: minmax(7rem, 0.4fr) 1fr;
-    gap: 24px;
-    padding: 12px 0;
-    border-bottom: var(--border-thin) solid var(--color-border-disabled);
-  }
+.typeTerm,
+.typeDescription {
+  margin: 0;
+}
 
-  dt,
-  dd {
-    margin: 0;
-  }
+.typeDetail {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.4fr) 1fr;
+  gap: 24px;
+  padding: 12px 0;
+  border-bottom: var(--border-thin) solid var(--color-border-disabled);
 }
 
 .buttonTable {

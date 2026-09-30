@@ -2,6 +2,16 @@
   display: grid;
   gap: 2rem;
   min-width: 0;
+  width: 100%;
+  max-width: 75rem;
+  margin-block-start: 4rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .section {
+    margin-block-start: 5rem;
+  }
 }
 .heading {
   margin: 0;

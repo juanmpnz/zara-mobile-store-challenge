@@ -69,7 +69,7 @@ export function ProductCatalog() {
 
         {productsQuery.isError ? (
           <div className={styles.state} role="alert">
-            <p>Unable to load products.</p>
+            <p className={styles.stateMessage}>Unable to load products.</p>
             <Button variant="secondary" size="small" onClick={() => void productsQuery.refetch()}>
               Retry
             </Button>
