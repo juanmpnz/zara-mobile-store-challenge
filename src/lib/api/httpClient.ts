@@ -30,12 +30,7 @@ function buildUrl(path: string, query: ApiRequestOptions['query']): URL {
 }
 
 function errorMessage(status: number, body: unknown): string {
-  if (
-    typeof body === 'object' &&
-    body !== null &&
-    'message' in body &&
-    typeof body.message === 'string'
-  ) {
+  if (typeof body === 'object' && body !== null && 'message' in body && typeof body.message === 'string') {
     return body.message;
   }
 
@@ -59,10 +54,7 @@ function parseBody(text: string): ParsedBody {
   }
 }
 
-export async function apiRequest(
-  path: string,
-  options: ApiRequestOptions = {},
-): Promise<unknown> {
+export async function apiRequest(path: string, options: ApiRequestOptions = {}): Promise<unknown> {
   const { query, headers: requestHeaders, ...requestInit } = options;
   const headers = new Headers(requestHeaders);
   headers.set('Accept', 'application/json');
@@ -76,19 +68,11 @@ export async function apiRequest(
   const parsedBody = parseBody(await response.text());
 
   if (!response.ok) {
-    throw new ApiError(
-      errorMessage(response.status, parsedBody.value),
-      response.status,
-      parsedBody.value,
-    );
+    throw new ApiError(errorMessage(response.status, parsedBody.value), response.status, parsedBody.value);
   }
 
   if (!parsedBody.isJson) {
-    throw new ApiError(
-      'API response was not valid JSON.',
-      response.status,
-      parsedBody.value,
-    );
+    throw new ApiError('API response was not valid JSON.', response.status, parsedBody.value);
   }
 
   return parsedBody.value;

@@ -1,11 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  createMemoryHistory,
-  createRouter,
-  RouterProvider,
-} from '@tanstack/react-router';
+import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { delay, http, HttpResponse } from 'msw';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import { CartProvider } from '@/features/cart/context/CartProvider';
@@ -38,9 +34,7 @@ test('adds the selected variant snapshot and navigates to the cart', async () =>
   const user = userEvent.setup();
   renderDetail();
 
-  expect(
-    await screen.findByRole('heading', { name: 'Example Phone' }),
-  ).toBeVisible();
+  expect(await screen.findByRole('heading', { name: 'Example Phone' })).toBeVisible();
   expect(screen.getByText('From 500 EUR')).toBeVisible();
   const addButton = screen.getByRole('button', { name: /add/i });
   expect(addButton).toBeDisabled();
@@ -56,15 +50,11 @@ test('adds the selected variant snapshot and navigates to the cart', async () =>
   expect(addButton).toBeEnabled();
 
   await user.click(addButton);
-  expect(
-    await screen.findByRole('heading', { name: 'CART (1)' }),
-  ).toBeVisible();
+  expect(await screen.findByRole('heading', { name: 'CART (1)' })).toBeVisible();
   expect(screen.getByRole('link', { name: 'Cart, 1 item' })).toBeVisible();
   expect(screen.getByText('Example Phone')).toBeVisible();
   await waitFor(() => {
-    const stored = JSON.parse(
-      localStorage.getItem('zara-mobile-store:cart:v1') ?? '{}',
-    ) as { items?: unknown[] };
+    const stored = JSON.parse(localStorage.getItem('zara-mobile-store:cart:v1') ?? '{}') as { items?: unknown[] };
     const items = stored.items as Array<Record<string, unknown>>;
     expect(items).toHaveLength(1);
     const snapshots = items.map((item) => {
@@ -104,9 +94,7 @@ test('uses keyboard radio navigation to select storage and update its price', as
   firstStorage.focus();
   await user.keyboard('{ArrowRight>}');
 
-  await waitFor(() =>
-    expect(screen.getByRole('radio', { name: '256 GB' })).toBeChecked(),
-  );
+  await waitFor(() => expect(screen.getByRole('radio', { name: '256 GB' })).toBeChecked());
   await user.keyboard('{/ArrowRight}');
   expect(screen.getByText('550 EUR')).toBeVisible();
   expect(
@@ -114,9 +102,7 @@ test('uses keyboard radio navigation to select storage and update its price', as
       name: 'Storage. How much space do you need?',
     }),
   ).toBeVisible();
-  expect(
-    screen.getByRole('radiogroup', { name: 'Color. Pick your favourite.' }),
-  ).toBeVisible();
+  expect(screen.getByRole('radiogroup', { name: 'Color. Pick your favourite.' })).toBeVisible();
 });
 
 test('changes the product image to the selected color image', async () => {
@@ -125,10 +111,7 @@ test('changes the product image to the selected color image', async () => {
     http.get(`${testApiUrl}/products/:productId`, () =>
       HttpResponse.json({
         ...productDetailFixture,
-        colorOptions: [
-          ...productDetailFixture.colorOptions,
-          { name: 'Blue', hexCode: '#0000ff', imageUrl: blueImage },
-        ],
+        colorOptions: [...productDetailFixture.colorOptions, { name: 'Blue', hexCode: '#0000ff', imageUrl: blueImage }],
       }),
     ),
   );
@@ -138,9 +121,7 @@ test('changes the product image to the selected color image', async () => {
 
   await user.click(screen.getByRole('radio', { name: 'Blue' }));
 
-  expect(
-    screen.getByRole('img', { name: 'Example Phone in Blue' }),
-  ).toHaveAttribute('src', blueImage);
+  expect(screen.getByRole('img', { name: 'Example Phone in Blue' })).toHaveAttribute('src', blueImage);
   expect(image).not.toBeInTheDocument();
 });
 
@@ -149,10 +130,7 @@ test('does not name a selected color when its image falls back to another color'
     http.get(`${testApiUrl}/products/:productId`, () =>
       HttpResponse.json({
         ...productDetailFixture,
-        colorOptions: [
-          ...productDetailFixture.colorOptions,
-          { name: 'Blue', hexCode: '#0000ff' },
-        ],
+        colorOptions: [...productDetailFixture.colorOptions, { name: 'Blue', hexCode: '#0000ff' }],
       }),
     ),
   );
@@ -162,13 +140,8 @@ test('does not name a selected color when its image falls back to another color'
 
   await user.click(screen.getByRole('radio', { name: 'Blue' }));
 
-  expect(screen.getByRole('img', { name: 'Example Phone' })).toHaveAttribute(
-    'src',
-    'https://images.example.test/phone.webp',
-  );
-  expect(
-    screen.queryByRole('img', { name: 'Example Phone in Blue' }),
-  ).not.toBeInTheDocument();
+  expect(screen.getByRole('img', { name: 'Example Phone' })).toHaveAttribute('src', 'https://images.example.test/phone.webp');
+  expect(screen.queryByRole('img', { name: 'Example Phone in Blue' })).not.toBeInTheDocument();
 });
 
 test('renders specifications and embedded similar products without another request', async () => {
@@ -185,10 +158,7 @@ test('renders specifications and embedded similar products without another reque
 
   expect(await screen.findByText('6 inches')).toBeVisible();
   expect(screen.getByText('Example OS')).toBeVisible();
-  expect(screen.getByRole('link', { name: /example phone/i })).toHaveAttribute(
-    'href',
-    '/products/phone-2',
-  );
+  expect(screen.getByRole('link', { name: /example phone/i })).toHaveAttribute('href', '/products/phone-2');
   expect(requestCount).toBe(1);
   expect(requestedIds).toEqual(['phone-1']);
 });
@@ -304,19 +274,13 @@ test('shows loading feedback and automatically retries one transient detail erro
     http.get(`${testApiUrl}/products/:productId`, async () => {
       requestCount += 1;
       await delay(100);
-      return requestCount === 1
-        ? HttpResponse.json({}, { status: 500 })
-        : HttpResponse.json(productDetailFixture);
+      return requestCount === 1 ? HttpResponse.json({}, { status: 500 }) : HttpResponse.json(productDetailFixture);
     }),
   );
   renderDetail('retryable');
 
-  expect(await screen.findByRole('status')).toHaveTextContent(
-    'Loading product…',
-  );
-  expect(
-    await screen.findByRole('heading', { name: 'Example Phone' }),
-  ).toBeVisible();
+  expect(await screen.findByRole('status')).toHaveTextContent('Loading product…');
+  expect(await screen.findByRole('heading', { name: 'Example Phone' })).toBeVisible();
   expect(requestCount).toBe(2);
 });
 
@@ -333,14 +297,8 @@ test('renders distinct not-found and retryable error states', async () => {
   expect(notFoundRequests).toBe(1);
   firstRender.unmount();
 
-  server.use(
-    http.get(`${testApiUrl}/products/:productId`, () =>
-      HttpResponse.json({}, { status: 500 }),
-    ),
-  );
+  server.use(http.get(`${testApiUrl}/products/:productId`, () => HttpResponse.json({}, { status: 500 })));
   renderDetail('broken');
-  expect(await screen.findByRole('alert')).toHaveTextContent(
-    'We could not load this product.',
-  );
+  expect(await screen.findByRole('alert')).toHaveTextContent('We could not load this product.');
   expect(screen.getByRole('button', { name: 'Try again' })).toBeVisible();
 });

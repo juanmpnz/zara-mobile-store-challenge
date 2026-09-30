@@ -5,11 +5,7 @@ import { StorageSelector } from '@/features/products/components/StorageSelector/
 test('disables storage options without a finite price', () => {
   render(
     <StorageSelector
-      options={[
-        { capacity: '128 GB' },
-        { capacity: '256 GB', price: Number.POSITIVE_INFINITY },
-        { capacity: '512 GB', price: 799 },
-      ]}
+      options={[{ capacity: '128 GB' }, { capacity: '256 GB', price: Number.POSITIVE_INFINITY }, { capacity: '512 GB', price: 799 }]}
       value=""
       onValueChange={() => undefined}
     />,

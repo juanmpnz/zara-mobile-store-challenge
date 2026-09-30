@@ -1,11 +1,5 @@
 import { expect, test } from 'vitest';
-import {
-  cartReducer,
-  createCartLine,
-  emptyCartState,
-  selectCartItemCount,
-  selectCartTotal,
-} from './cart';
+import { cartReducer, createCartLine, emptyCartState, selectCartItemCount, selectCartTotal } from './cart';
 
 const selection = {
   productId: 'phone',
@@ -34,13 +28,9 @@ test('adds independent duplicate selections, removes one, and derives count and 
 
 test('adds a line to an empty cart and leaves unknown removals unchanged', () => {
   const line = createCartLine('first', selection);
-  expect(
-    cartReducer(emptyCartState, { type: 'add', item: line }).items,
-  ).toEqual([line]);
+  expect(cartReducer(emptyCartState, { type: 'add', item: line }).items).toEqual([line]);
   expect(emptyCartState.items).toEqual([]);
-  expect(
-    cartReducer(emptyCartState, { type: 'remove', id: 'missing' }).items,
-  ).toEqual([]);
+  expect(cartReducer(emptyCartState, { type: 'remove', id: 'missing' }).items).toEqual([]);
   expect(selectCartItemCount([])).toBe(0);
   expect(selectCartTotal([])).toBe(0);
 });
@@ -62,11 +52,6 @@ test('copies the selection snapshot so later source changes cannot change its pr
   });
 });
 
-test.each([NaN, Infinity, -Infinity])(
-  'rejects nonfinite selection price %s',
-  (unitPrice) => {
-    expect(() => createCartLine('first', { ...selection, unitPrice })).toThrow(
-      'incomplete cart selection',
-    );
-  },
-);
+test.each([NaN, Infinity, -Infinity])('rejects nonfinite selection price %s', (unitPrice) => {
+  expect(() => createCartLine('first', { ...selection, unitPrice })).toThrow('incomplete cart selection');
+});

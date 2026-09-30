@@ -6,11 +6,7 @@ interface ProductImageProps {
 
 import styles from './ProductImage.module.scss';
 
-export function ProductImage({
-  image,
-  productName,
-  colorName,
-}: ProductImageProps) {
+export function ProductImage({ image, productName, colorName }: ProductImageProps) {
   const source = image?.trim();
   const name = productName?.trim() || 'Product';
   const alt = colorName?.trim() ? `${name} in ${colorName}` : name;

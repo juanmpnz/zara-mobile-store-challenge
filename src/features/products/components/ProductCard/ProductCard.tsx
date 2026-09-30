@@ -20,9 +20,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
   const name = getDisplayValue(product.name, 'Unnamed product');
   const image = product.image?.trim();
   const price =
-    typeof product.basePrice === 'number' && Number.isFinite(product.basePrice)
-      ? formatPrice(product.basePrice)
-      : 'Price unavailable';
+    typeof product.basePrice === 'number' && Number.isFinite(product.basePrice) ? formatPrice(product.basePrice) : 'Price unavailable';
   const imageAlt = product.brand?.trim() ? `${brand} ${name}` : `${name}`;
   const classes = [styles.card, className].filter(Boolean).join(' ');
 
@@ -48,11 +46,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article className={classes}>
       {productId ? (
-        <Link
-          className={styles.link}
-          to="/products/$productId"
-          params={{ productId }}
-        >
+        <Link className={styles.link} to="/products/$productId" params={{ productId }}>
           {content}
         </Link>
       ) : (

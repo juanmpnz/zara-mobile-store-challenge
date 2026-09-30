@@ -1,17 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  createMemoryHistory,
-  createRouter,
-  RouterProvider,
-} from '@tanstack/react-router';
+import { createMemoryHistory, createRouter, RouterProvider } from '@tanstack/react-router';
 import { http, HttpResponse } from 'msw';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import { CartProvider } from '@/features/cart/context/CartProvider';
@@ -68,17 +58,9 @@ test('requests the first 20 products and renders the real response count', async
 
   renderCatalog();
 
-  expect(
-    await screen.findByRole('searchbox', { name: 'Search products' }),
-  ).toBeVisible();
-  expect(await screen.findByText('2 RESULTS')).toHaveAttribute(
-    'aria-live',
-    'polite',
-  );
-  expect(screen.getByRole('link', { name: /example phone/i })).toHaveAttribute(
-    'href',
-    '/products/phone-1',
-  );
+  expect(await screen.findByRole('searchbox', { name: 'Search products' })).toBeVisible();
+  expect(await screen.findByText('2 RESULTS')).toHaveAttribute('aria-live', 'polite');
+  expect(screen.getByRole('link', { name: /example phone/i })).toHaveAttribute('href', '/products/phone-1');
   expect(screen.getByRole('link', { name: /second phone/i })).toBeVisible();
   expect(Object.fromEntries(new URL(requestUrl).searchParams)).toEqual({
     limit: '20',
@@ -103,9 +85,7 @@ test('counts and renders a product without an id without inventing a detail link
 
   expect(await screen.findByText('1 RESULTS')).toBeVisible();
   expect(screen.getByText('Incomplete Phone')).toBeVisible();
-  expect(
-    screen.queryByRole('link', { name: /incomplete phone/i }),
-  ).not.toBeInTheDocument();
+  expect(screen.queryByRole('link', { name: /incomplete phone/i })).not.toBeInTheDocument();
 });
 
 test('debounces rapid input and searches on the server with the trimmed value', async () => {
@@ -201,9 +181,7 @@ test('keeps prior products visible and announces an update while search loads', 
   expect(await screen.findByText('2 RESULTS')).toBeVisible();
   expect(screen.getByText('Search Result One')).toBeVisible();
   expect(screen.queryByText('Example Phone')).not.toBeInTheDocument();
-  expect(
-    screen.queryByRole('status', { name: 'Updating products…' }),
-  ).not.toBeInTheDocument();
+  expect(screen.queryByRole('status', { name: 'Updating products…' })).not.toBeInTheDocument();
 });
 
 test('renders products returned by a server-side name search', async () => {
@@ -374,9 +352,7 @@ test('shows an empty result without removing the usable search', async () => {
 
   expect(await screen.findByText('0 RESULTS')).toBeVisible();
   expect(screen.getByText('No products found.')).toBeVisible();
-  expect(
-    screen.getByRole('searchbox', { name: 'Search products' }),
-  ).toBeEnabled();
+  expect(screen.getByRole('searchbox', { name: 'Search products' })).toBeEnabled();
 });
 
 test('shows an accessible error and retries the catalog request', async () => {
@@ -385,10 +361,7 @@ test('shows an accessible error and retries the catalog request', async () => {
     http.get(`${testApiUrl}/products`, () => {
       attempts += 1;
       return attempts === 1
-        ? HttpResponse.json(
-            { message: 'private transport detail' },
-            { status: 500 },
-          )
+        ? HttpResponse.json({ message: 'private transport detail' }, { status: 500 })
         : HttpResponse.json([productSummaryFixture]);
     }),
   );
@@ -396,12 +369,8 @@ test('shows an accessible error and retries the catalog request', async () => {
 
   renderCatalog();
 
-  expect(await screen.findByRole('alert')).toHaveTextContent(
-    'Unable to load products.',
-  );
-  expect(
-    screen.queryByText('private transport detail'),
-  ).not.toBeInTheDocument();
+  expect(await screen.findByRole('alert')).toHaveTextContent('Unable to load products.');
+  expect(screen.queryByText('private transport detail')).not.toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: 'Retry' }));
 
   expect(await screen.findByText('1 RESULTS')).toBeVisible();

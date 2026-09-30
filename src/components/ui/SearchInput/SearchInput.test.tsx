@@ -29,12 +29,8 @@ function SearchHarness({
 
 test('exposes the supplied accessible name and no clear control when empty', () => {
   render(<SearchHarness />);
-  expect(screen.getByRole('searchbox', { name: 'Search phones' })).toHaveValue(
-    '',
-  );
-  expect(
-    screen.queryByRole('button', { name: 'Clear search' }),
-  ).not.toBeInTheDocument();
+  expect(screen.getByRole('searchbox', { name: 'Search phones' })).toHaveValue('');
+  expect(screen.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument();
 });
 
 test('emits typed values and displays the controlled value', async () => {
@@ -72,9 +68,7 @@ test('clears a filled search through its handler and restores input focus', asyn
   expect(input).toHaveValue('');
   expect(input).toHaveFocus();
   expect(onChange).toHaveBeenLastCalledWith('');
-  expect(
-    screen.queryByRole('button', { name: 'Clear search' }),
-  ).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument();
 });
 
 test('disables typing and clearing', async () => {
@@ -93,19 +87,8 @@ test('disables typing and clearing', async () => {
 
 test('preserves read-only semantics by withholding the clear action', () => {
   const onChange = vi.fn();
-  render(
-    <SearchInput
-      label="Search phones"
-      value="Phone"
-      readOnly
-      onValueChange={onChange}
-    />,
-  );
-  expect(screen.getByRole('searchbox', { name: 'Search phones' })).toHaveValue(
-    'Phone',
-  );
-  expect(
-    screen.queryByRole('button', { name: 'Clear search' }),
-  ).not.toBeInTheDocument();
+  render(<SearchInput label="Search phones" value="Phone" readOnly onValueChange={onChange} />);
+  expect(screen.getByRole('searchbox', { name: 'Search phones' })).toHaveValue('Phone');
+  expect(screen.queryByRole('button', { name: 'Clear search' })).not.toBeInTheDocument();
   expect(onChange).not.toHaveBeenCalled();
 });

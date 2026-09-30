@@ -10,9 +10,7 @@ interface CartSummaryProps {
 
 export function CartSummary({ total }: CartSummaryProps) {
   const hasItems = total !== undefined;
-  const summaryClassName = [styles.summary, !hasItems && styles.empty]
-    .filter(Boolean)
-    .join(' ');
+  const summaryClassName = [styles.summary, !hasItems && styles.empty].filter(Boolean).join(' ');
 
   return (
     <footer className={summaryClassName}>
@@ -21,10 +19,7 @@ export function CartSummary({ total }: CartSummaryProps) {
       </Link>
       {hasItems ? (
         <>
-          <div
-            className={styles.total}
-            aria-label={`Total ${formatPrice(total)}`}
-          >
+          <div className={styles.total} aria-label={`Total ${formatPrice(total)}`}>
             <span>TOTAL</span>
             <span>{formatPrice(total)}</span>
           </div>

@@ -4,13 +4,7 @@ import { useState } from 'react';
 import { expect, test, vi } from 'vitest';
 import { SelectionGroupItem, SelectionGroupRoot } from './SelectionGroup';
 
-function SelectionHarness({
-  disabled = false,
-  onChange = () => undefined,
-}: {
-  disabled?: boolean;
-  onChange?: (value: string) => void;
-}) {
+function SelectionHarness({ disabled = false, onChange = () => undefined }: { disabled?: boolean; onChange?: (value: string) => void }) {
   const [value, setValue] = useState('128');
   return (
     <SelectionGroupRoot
@@ -54,9 +48,7 @@ test('supports arrow-key selection from the checked radio', async () => {
   await user.tab();
   expect(screen.getByRole('radio', { name: '128 GB' })).toHaveFocus();
   await user.keyboard('{ArrowRight>}');
-  await waitFor(() =>
-    expect(screen.getByRole('radio', { name: '256 GB' })).toBeChecked(),
-  );
+  await waitFor(() => expect(screen.getByRole('radio', { name: '256 GB' })).toBeChecked());
   expect(screen.getByRole('radio', { name: '256 GB' })).toHaveFocus();
   await user.keyboard('{/ArrowRight}');
 });
@@ -76,8 +68,7 @@ test('disables all options when the group is disabled', async () => {
   const user = userEvent.setup();
   const onChange = vi.fn();
   render(<SelectionHarness disabled onChange={onChange} />);
-  for (const radio of screen.getAllByRole('radio'))
-    expect(radio).toBeDisabled();
+  for (const radio of screen.getAllByRole('radio')) expect(radio).toBeDisabled();
   await user.click(screen.getByRole('radio', { name: '256 GB' }));
   expect(onChange).not.toHaveBeenCalled();
   expect(screen.getByRole('radio', { name: '128 GB' })).toBeChecked();

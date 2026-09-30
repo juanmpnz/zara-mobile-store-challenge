@@ -1,9 +1,4 @@
-import {
-  createContext,
-  createElement,
-  useContext,
-  type PropsWithChildren,
-} from 'react';
+import { createContext, createElement, useContext, type PropsWithChildren } from 'react';
 import type { AddCartItem, CartLine } from '@/features/cart/model/cart';
 
 export interface CartStateValue {
@@ -24,15 +19,9 @@ interface CartContextBoundaryProps extends PropsWithChildren {
 }
 
 const CartStateContext = createContext<CartStateValue | undefined>(undefined);
-const CartActionsContext = createContext<CartActionsValue | undefined>(
-  undefined,
-);
+const CartActionsContext = createContext<CartActionsValue | undefined>(undefined);
 
-export function CartContextBoundary({
-  state,
-  actions,
-  children,
-}: CartContextBoundaryProps) {
+export function CartContextBoundary({ state, actions, children }: CartContextBoundaryProps) {
   return createElement(
     CartActionsContext.Provider,
     { value: actions },

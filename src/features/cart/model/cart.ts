@@ -20,10 +20,7 @@ export interface CartState {
   items: readonly CartLine[];
 }
 
-export type CartAction =
-  | { type: 'add'; item: CartLine }
-  | { type: 'remove'; id: string }
-  | { type: 'clear' };
+export type CartAction = { type: 'add'; item: CartLine } | { type: 'remove'; id: string } | { type: 'clear' };
 
 export const emptyCartState: CartState = { items: [] };
 

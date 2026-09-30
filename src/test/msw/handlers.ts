@@ -30,10 +30,6 @@ export const productDetailFixture = {
 };
 
 export const handlers = [
-  http.get(`${testApiUrl}/products`, () =>
-    HttpResponse.json([productSummaryFixture]),
-  ),
-  http.get(`${testApiUrl}/products/:productId`, () =>
-    HttpResponse.json(productDetailFixture),
-  ),
+  http.get(`${testApiUrl}/products`, () => HttpResponse.json([productSummaryFixture])),
+  http.get(`${testApiUrl}/products/:productId`, () => HttpResponse.json(productDetailFixture)),
 ];

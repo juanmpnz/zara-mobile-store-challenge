@@ -1,11 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  createRootRoute,
-  createRouter,
-  createMemoryHistory,
-  RouterProvider,
-} from '@tanstack/react-router';
+import { createRootRoute, createRouter, createMemoryHistory, RouterProvider } from '@tanstack/react-router';
 import { beforeEach, afterEach, expect, test } from 'vitest';
 import { CartProvider } from '@/features/cart/context/CartProvider';
 import { useCartActions } from '@/features/cart/context/cartContext';
@@ -50,19 +45,10 @@ function renderHeader() {
 
 test('links home and cart with an accessible empty count', async () => {
   renderHeader();
-  expect(
-    await screen.findByRole('link', { name: 'MBST home' }),
-  ).toHaveAttribute('href', '/');
-  expect(
-    screen.getByRole('link', { name: 'MBST home' }).querySelector('img'),
-  ).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Cart, 0 items' })).toHaveAttribute(
-    'href',
-    '/cart',
-  );
-  expect(
-    screen.getByRole('link', { name: 'Cart, 0 items' }).querySelector('img'),
-  ).not.toBeInTheDocument();
+  expect(await screen.findByRole('link', { name: 'MBST home' })).toHaveAttribute('href', '/');
+  expect(screen.getByRole('link', { name: 'MBST home' }).querySelector('img')).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Cart, 0 items' })).toHaveAttribute('href', '/cart');
+  expect(screen.getByRole('link', { name: 'Cart, 0 items' }).querySelector('img')).not.toBeInTheDocument();
 });
 
 test('updates singular and plural count names through real cart actions', async () => {
@@ -74,7 +60,5 @@ test('updates singular and plural count names through real cart actions', async 
   expect(filledCart).toHaveTextContent('1');
   expect(filledCart.querySelector('img')).toBeInTheDocument();
   await user.click(add);
-  expect(screen.getByRole('link', { name: 'Cart, 2 items' })).toHaveTextContent(
-    '2',
-  );
+  expect(screen.getByRole('link', { name: 'Cart, 2 items' })).toHaveTextContent('2');
 });

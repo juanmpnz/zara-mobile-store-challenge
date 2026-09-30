@@ -37,10 +37,7 @@ export function SpecificationsTable({ product }: SpecificationsTableProps) {
 
   if (rows.length === 0) return null;
   return (
-    <section
-      className={styles.section}
-      aria-labelledby="specifications-heading"
-    >
+    <section className={styles.section} aria-labelledby="specifications-heading">
       <h2 id="specifications-heading" className={styles.heading}>
         SPECIFICATIONS
       </h2>

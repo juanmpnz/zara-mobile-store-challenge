@@ -12,10 +12,7 @@ function requiredValue(name: string, value: unknown): string {
 }
 
 function readEnvironment(source: ImportMetaEnv): AppEnvironment {
-  const apiBaseUrl = requiredValue(
-    'VITE_API_BASE_URL',
-    source.VITE_API_BASE_URL,
-  );
+  const apiBaseUrl = requiredValue('VITE_API_BASE_URL', source.VITE_API_BASE_URL);
 
   try {
     const url = new URL(apiBaseUrl);

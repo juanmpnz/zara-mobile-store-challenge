@@ -28,13 +28,9 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
   const navigate = useNavigate();
   const [storageCapacity, setStorageCapacity] = useState('');
   const [colorName, setColorName] = useState('');
-  const storage = product.storageOptions?.find(
-    (item) => item.capacity?.trim() === storageCapacity,
-  );
+  const storage = product.storageOptions?.find((item) => item.capacity?.trim() === storageCapacity);
   const color = product.colors?.find((item) => item.name?.trim() === colorName);
-  const initialImage = product.colors
-    ?.find((item) => item.image?.trim())
-    ?.image?.trim();
+  const initialImage = product.colors?.find((item) => item.image?.trim())?.image?.trim();
   const selectedColorImage = color?.image?.trim();
   const image = selectedColorImage || initialImage;
   const name = product.name?.trim();
@@ -45,24 +41,10 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
     : validPrice(product.basePrice)
       ? `From ${formatPrice(product.basePrice)}`
       : 'Price unavailable';
-  const canAdd = Boolean(
-    productId &&
-    name &&
-    storageCapacity &&
-    colorName &&
-    validPrice(selectedPrice),
-  );
+  const canAdd = Boolean(productId && name && storageCapacity && colorName && validPrice(selectedPrice));
 
   function addToCart() {
-    if (
-      !canAdd ||
-      !productId ||
-      !name ||
-      !storage ||
-      !color ||
-      !validPrice(selectedPrice)
-    )
-      return;
+    if (!canAdd || !productId || !name || !storage || !color || !validPrice(selectedPrice)) return;
     const selectedImage = color.image?.trim();
     addItem({
       productId,
@@ -85,32 +67,15 @@ function ProductDetailContent({ product }: { product: ProductDetailModel }) {
         <span>BACK</span>
       </Link>
       <div className={styles.hero}>
-        <ProductImage
-          image={image}
-          productName={name}
-          colorName={selectedColorImage ? color?.name : undefined}
-        />
+        <ProductImage image={image} productName={name} colorName={selectedColorImage ? color?.name : undefined} />
         <div className={styles.configuration}>
           <header className={styles.summary}>
             <h1>{name || 'Unnamed product'}</h1>
             <p>{displayPrice}</p>
           </header>
-          <StorageSelector
-            options={product.storageOptions ?? []}
-            value={storageCapacity}
-            onValueChange={setStorageCapacity}
-          />
-          <ColorSelector
-            options={product.colors ?? []}
-            value={colorName}
-            onValueChange={setColorName}
-          />
-          <Button
-            className={styles.add}
-            size="large"
-            disabled={!canAdd}
-            onClick={addToCart}
-          >
+          <StorageSelector options={product.storageOptions ?? []} value={storageCapacity} onValueChange={setStorageCapacity} />
+          <ColorSelector options={product.colors ?? []} value={colorName} onValueChange={setColorName} />
+          <Button className={styles.add} size="large" disabled={!canAdd} onClick={addToCart}>
             ADD
           </Button>
         </div>

@@ -3,15 +3,12 @@ import userEvent from '@testing-library/user-event';
 import { expect, test, vi } from 'vitest';
 import { Button } from './Button';
 
-test.each(['primary', 'secondary'] as const)(
-  'renders an accessible native %s button with safe default type',
-  (variant) => {
-    render(<Button variant={variant}>Continue</Button>);
-    const button = screen.getByRole('button', { name: 'Continue' });
-    expect(button.tagName).toBe('BUTTON');
-    expect(button).toHaveAttribute('type', 'button');
-  },
-);
+test.each(['primary', 'secondary'] as const)('renders an accessible native %s button with safe default type', (variant) => {
+  render(<Button variant={variant}>Continue</Button>);
+  const button = screen.getByRole('button', { name: 'Continue' });
+  expect(button.tagName).toBe('BUTTON');
+  expect(button).toHaveAttribute('type', 'button');
+});
 
 test('supports an explicit submit type and accessible name', () => {
   render(
@@ -19,9 +16,7 @@ test('supports an explicit submit type and accessible name', () => {
       Save
     </Button>,
   );
-  expect(
-    screen.getByRole('button', { name: 'Save selection' }),
-  ).toHaveAttribute('type', 'submit');
+  expect(screen.getByRole('button', { name: 'Save selection' })).toHaveAttribute('type', 'submit');
 });
 
 test('invokes clicks while enabled', async () => {

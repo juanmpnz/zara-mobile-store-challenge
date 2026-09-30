@@ -28,8 +28,7 @@ export function ProductCatalog() {
 
   const productsQuery = useProductsQuery(search ? { search } : {});
   const products = productsQuery.data ?? [];
-  const isUpdating =
-    productsQuery.isFetching && productsQuery.isPlaceholderData;
+  const isUpdating = productsQuery.isFetching && productsQuery.isPlaceholderData;
 
   const handleSearchValueChange = (value: string): void => {
     setSearchValue(value);
@@ -46,27 +45,16 @@ export function ProductCatalog() {
       </h1>
 
       <div className={styles.searchArea}>
-        <SearchInput
-          label="Search products"
-          value={searchValue}
-          onValueChange={handleSearchValueChange}
-        />
+        <SearchInput label="Search products" value={searchValue} onValueChange={handleSearchValueChange} />
 
         {productsQuery.isSuccess && !isUpdating ? (
-          <p
-            className={styles.resultCount}
-            aria-live="polite"
-            aria-atomic="true"
-          >
+          <p className={styles.resultCount} aria-live="polite" aria-atomic="true">
             {products.length} RESULTS
           </p>
         ) : null}
       </div>
 
-      <div
-        className={styles.results}
-        aria-busy={productsQuery.isPending || productsQuery.isFetching}
-      >
+      <div className={styles.results} aria-busy={productsQuery.isPending || productsQuery.isFetching}>
         {productsQuery.isPending ? (
           <p className={styles.state} role="status">
             Loading products…
@@ -74,11 +62,7 @@ export function ProductCatalog() {
         ) : null}
 
         {isUpdating ? (
-          <p
-            className={styles.resultCount}
-            role="status"
-            aria-label="Updating products…"
-          >
+          <p className={styles.resultCount} role="status" aria-label="Updating products…">
             Updating products…
           </p>
         ) : null}
@@ -86,23 +70,15 @@ export function ProductCatalog() {
         {productsQuery.isError ? (
           <div className={styles.state} role="alert">
             <p>Unable to load products.</p>
-            <Button
-              variant="secondary"
-              size="small"
-              onClick={() => void productsQuery.refetch()}
-            >
+            <Button variant="secondary" size="small" onClick={() => void productsQuery.refetch()}>
               Retry
             </Button>
           </div>
         ) : null}
 
-        {productsQuery.isSuccess && products.length === 0 ? (
-          <p className={styles.state}>No products found.</p>
-        ) : null}
+        {productsQuery.isSuccess && products.length === 0 ? <p className={styles.state}>No products found.</p> : null}
 
-        {productsQuery.isSuccess && products.length > 0 ? (
-          <ProductGrid products={products} label="Product results" />
-        ) : null}
+        {productsQuery.isSuccess && products.length > 0 ? <ProductGrid products={products} label="Product results" /> : null}
       </div>
     </section>
   );

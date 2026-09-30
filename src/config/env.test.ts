@@ -18,13 +18,8 @@ test('trims surrounding configuration whitespace', async () => {
   });
 });
 
-test.each(['VITE_API_BASE_URL', 'VITE_API_KEY'])(
-  'fails clearly when %s is missing',
-  async (name) => {
-    vi.stubEnv(name, ' ');
-    vi.resetModules();
-    await expect(import('./env')).rejects.toThrow(
-      `Missing required environment variable: ${name}`,
-    );
-  },
-);
+test.each(['VITE_API_BASE_URL', 'VITE_API_KEY'])('fails clearly when %s is missing', async (name) => {
+  vi.stubEnv(name, ' ');
+  vi.resetModules();
+  await expect(import('./env')).rejects.toThrow(`Missing required environment variable: ${name}`);
+});

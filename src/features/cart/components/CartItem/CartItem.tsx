@@ -13,11 +13,7 @@ export function CartItem({ item, onRemove }: CartItemProps) {
     <li className={styles.item}>
       <div className={styles.imageFrame}>
         {item.image ? (
-          <img
-            className={styles.image}
-            src={item.image}
-            alt={`${item.name}, ${item.color.name}`}
-          />
+          <img className={styles.image} src={item.image} alt={`${item.name}, ${item.color.name}`} />
         ) : (
           <span className={styles.imageFallback} aria-hidden="true">
             IMAGE UNAVAILABLE
@@ -32,12 +28,7 @@ export function CartItem({ item, onRemove }: CartItemProps) {
           </p>
         </div>
         <p className={styles.price}>{formatPrice(item.unitPrice)}</p>
-        <button
-          className={styles.remove}
-          type="button"
-          onClick={() => onRemove(item.id)}
-          aria-label={`Eliminar ${item.name} del carrito`}
-        >
+        <button className={styles.remove} type="button" onClick={() => onRemove(item.id)} aria-label={`Eliminar ${item.name} del carrito`}>
           Eliminar
         </button>
       </div>

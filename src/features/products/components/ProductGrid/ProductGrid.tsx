@@ -35,18 +35,10 @@ function getProductIdentity(product: ProductSummary): string {
     return `id:${productId}`;
   }
 
-  return [
-    'unidentified',
-    product.brand?.trim(),
-    product.name?.trim(),
-    product.basePrice,
-    product.image?.trim(),
-  ].join(':');
+  return ['unidentified', product.brand?.trim(), product.name?.trim(), product.basePrice, product.image?.trim()].join(':');
 }
 
-function getProductEntries(
-  products: readonly ProductSummary[],
-): ProductEntry[] {
+function getProductEntries(products: readonly ProductSummary[]): ProductEntry[] {
   const occurrences = new Map<string, number>();
 
   return products.map((product) => {
@@ -59,27 +51,16 @@ function getProductEntries(
 }
 
 function motionIsReduced(): boolean {
-  return (
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
+  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
 function relativeRect(element: HTMLElement, regionRect: DOMRect): DOMRect {
   const rect = element.getBoundingClientRect();
 
-  return new DOMRect(
-    rect.left - regionRect.left,
-    rect.top - regionRect.top,
-    rect.width,
-    rect.height,
-  );
+  return new DOMRect(rect.left - regionRect.left, rect.top - regionRect.top, rect.width, rect.height);
 }
 
-export function ProductGrid({
-  products,
-  label = 'Products',
-}: ProductGridProps) {
+export function ProductGrid({ products, label = 'Products' }: ProductGridProps) {
   const entries = useMemo(() => getProductEntries(products), [products]);
   const signature = entries.map((entry) => entry.key).join('|');
   const regionRef = useRef<HTMLDivElement | null>(null);
@@ -119,12 +100,7 @@ export function ProductGrid({
       signature,
     };
 
-    if (
-      !previous ||
-      previous.signature === signature ||
-      motionIsReduced() ||
-      typeof region.animate !== 'function'
-    ) {
+    if (!previous || previous.signature === signature || motionIsReduced() || typeof region.animate !== 'function') {
       return;
     }
 
@@ -150,9 +126,7 @@ export function ProductGrid({
       const previousItem = previous.items.get(key);
 
       if (!previousItem) {
-        animationsRef.current.push(
-          element.animate([{ opacity: 0 }, { opacity: 1 }], animationOptions),
-        );
+        animationsRef.current.push(element.animate([{ opacity: 0 }, { opacity: 1 }], animationOptions));
         continue;
       }
 
@@ -161,13 +135,7 @@ export function ProductGrid({
 
       if (deltaX !== 0 || deltaY !== 0) {
         animationsRef.current.push(
-          element.animate(
-            [
-              { transform: `translate(${deltaX}px, ${deltaY}px)` },
-              { transform: 'translate(0, 0)' },
-            ],
-            animationOptions,
-          ),
+          element.animate([{ transform: `translate(${deltaX}px, ${deltaY}px)` }, { transform: 'translate(0, 0)' }], animationOptions),
         );
       }
     }
@@ -189,10 +157,7 @@ export function ProductGrid({
       ghost.style.pointerEvents = 'none';
       overlay.appendChild(ghost);
 
-      const animation = ghost.animate(
-        [{ opacity: 1 }, { opacity: 0 }],
-        animationOptions,
-      );
+      const animation = ghost.animate([{ opacity: 1 }, { opacity: 0 }], animationOptions);
       animationsRef.current.push(animation);
       void animation.finished.then(
         () => ghost.remove(),
@@ -202,13 +167,7 @@ export function ProductGrid({
 
     if (previous.height !== regionRect.height) {
       animationsRef.current.push(
-        region.animate(
-          [
-            { height: `${previous.height}px` },
-            { height: `${regionRect.height}px` },
-          ],
-          animationOptions,
-        ),
+        region.animate([{ height: `${previous.height}px` }, { height: `${regionRect.height}px` }], animationOptions),
       );
     }
   }, [entries, signature]);

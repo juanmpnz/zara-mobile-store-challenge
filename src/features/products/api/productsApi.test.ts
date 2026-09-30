@@ -2,11 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { expect, test } from 'vitest';
 import { ApiError } from '@/lib/api/ApiError';
 import { server } from '@/test/msw/server';
-import {
-  productDetailFixture,
-  productSummaryFixture,
-  testApiUrl,
-} from '@/test/msw/handlers';
+import { productDetailFixture, productSummaryFixture, testApiUrl } from '@/test/msw/handlers';
 import { getProductById, getProducts } from './productsApi';
 
 test('sends configured authentication and list parameters, and maps the response', async () => {
@@ -26,10 +22,7 @@ test('sends configured authentication and list parameters, and maps the response
 
   expect(receivedRequest?.headers.get('x-api-key')).toBe('test-api-key');
   expect(receivedRequest?.headers.get('accept')).toBe('application/json');
-  expect(
-    receivedRequest &&
-      Object.fromEntries(new URL(receivedRequest.url).searchParams),
-  ).toEqual({
+  expect(receivedRequest && Object.fromEntries(new URL(receivedRequest.url).searchParams)).toEqual({
     search: 'Phone & brand',
     limit: '5',
     offset: '10',
@@ -97,10 +90,7 @@ test('encodes detail identity and maps variants, specifications and embedded sim
 test('preserves unknown-product HTTP 404 as a structured ApiError', async () => {
   server.use(
     http.get(`${testApiUrl}/products/:productId`, () =>
-      HttpResponse.json(
-        { error: 'NOT-FOUND', message: 'Product not found' },
-        { status: 404 },
-      ),
+      HttpResponse.json({ error: 'NOT-FOUND', message: 'Product not found' }, { status: 404 }),
     ),
   );
   const result = getProductById('missing');
@@ -111,31 +101,18 @@ test('preserves unknown-product HTTP 404 as a structured ApiError', async () => 
   });
 });
 
-test.each([{ products: [] }, [{ basePrice: '500' }], [null]])(
-  'rejects malformed list data %#',
-  async (body) => {
-    server.use(
-      http.get(`${testApiUrl}/products`, () => HttpResponse.json(body)),
-    );
-    await expect(getProducts()).rejects.toThrow('invalid shape');
-  },
-);
+test.each([{ products: [] }, [{ basePrice: '500' }], [null]])('rejects malformed list data %#', async (body) => {
+  server.use(http.get(`${testApiUrl}/products`, () => HttpResponse.json(body)));
+  await expect(getProducts()).rejects.toThrow('invalid shape');
+});
 
 test('rejects malformed nested detail data', async () => {
-  server.use(
-    http.get(`${testApiUrl}/products/:productId`, () =>
-      HttpResponse.json({ storageOptions: [{ price: '550' }] }),
-    ),
-  );
+  server.use(http.get(`${testApiUrl}/products/:productId`, () => HttpResponse.json({ storageOptions: [{ price: '550' }] })));
   await expect(getProductById('phone-1')).rejects.toThrow('invalid shape');
 });
 
 test('keeps omitted optional detail values absent rather than inventing defaults', async () => {
-  server.use(
-    http.get(`${testApiUrl}/products/:productId`, () =>
-      HttpResponse.json({ id: 'minimal' }),
-    ),
-  );
+  server.use(http.get(`${testApiUrl}/products/:productId`, () => HttpResponse.json({ id: 'minimal' })));
   const product = await getProductById('minimal');
   expect(product.id).toBe('minimal');
   expect(product.basePrice).toBeUndefined();
@@ -145,19 +122,12 @@ test('keeps omitted optional detail values absent rather than inventing defaults
   expect(product.similarProducts).toBeUndefined();
 });
 
-test.each([404, 500])(
-  'preserves HTTP %s even when the error body is not JSON',
-  async (status) => {
-    server.use(
-      http.get(`${testApiUrl}/products/:productId`, () =>
-        HttpResponse.text('Upstream failure', { status }),
-      ),
-    );
-    const result = getProductById('missing');
-    await expect(result).rejects.toBeInstanceOf(ApiError);
-    await expect(result).rejects.toMatchObject({ status });
-  },
-);
+test.each([404, 500])('preserves HTTP %s even when the error body is not JSON', async (status) => {
+  server.use(http.get(`${testApiUrl}/products/:productId`, () => HttpResponse.text('Upstream failure', { status })));
+  const result = getProductById('missing');
+  await expect(result).rejects.toBeInstanceOf(ApiError);
+  await expect(result).rejects.toMatchObject({ status });
+});
 
 test('rejects malformed JSON in a successful response', async () => {
   server.use(

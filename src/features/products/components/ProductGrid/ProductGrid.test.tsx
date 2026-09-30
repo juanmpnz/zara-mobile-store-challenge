@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { act, render, screen, within } from '@testing-library/react';
-import {
-  createRootRoute,
-  createRouter,
-  createMemoryHistory,
-  RouterProvider,
-} from '@tanstack/react-router';
+import { createRootRoute, createRouter, createMemoryHistory, RouterProvider } from '@tanstack/react-router';
 import { afterEach, expect, test, vi } from 'vitest';
 import type { ProductSummary } from '@/features/products/model/product';
 import { ProductGrid } from './ProductGrid';
@@ -18,9 +13,7 @@ afterEach(() => {
 function renderGrid(products: ProductSummary[]) {
   const router = createRouter({
     routeTree: createRootRoute({
-      component: () => (
-        <ProductGrid products={products} label="Phone catalog" />
-      ),
+      component: () => <ProductGrid products={products} label="Phone catalog" />,
     }),
     history: createMemoryHistory({ initialEntries: ['/'] }),
   });
@@ -96,31 +89,22 @@ test('preserves retained card identity while result sets collapse and expand', a
     basePrice: 700,
   };
   const updateProducts = renderAnimatedGrid([apple, google, samsung]);
-  const samsungCard = (
-    await screen.findByRole('link', { name: /samsung galaxy s24/i })
-  ).closest('li');
+  const samsungCard = (await screen.findByRole('link', { name: /samsung galaxy s24/i })).closest('li');
 
   updateProducts([samsung]);
 
   expect(screen.getAllByRole('listitem')).toHaveLength(1);
-  expect(
-    screen.getByRole('link', { name: /samsung galaxy s24/i }).closest('li'),
-  ).toBe(samsungCard);
+  expect(screen.getByRole('link', { name: /samsung galaxy s24/i }).closest('li')).toBe(samsungCard);
 
   updateProducts([apple, google, samsung]);
 
   expect(screen.getAllByRole('listitem')).toHaveLength(3);
-  expect(
-    screen.getByRole('link', { name: /samsung galaxy s24/i }).closest('li'),
-  ).toBe(samsungCard);
+  expect(screen.getByRole('link', { name: /samsung galaxy s24/i }).closest('li')).toBe(samsungCard);
 });
 
 test('updates without animation when reduced motion is requested', () => {
   const animate = vi.fn();
-  const originalAnimate = Object.getOwnPropertyDescriptor(
-    HTMLElement.prototype,
-    'animate',
-  );
+  const originalAnimate = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'animate');
   Object.defineProperty(HTMLElement.prototype, 'animate', {
     configurable: true,
     value: animate,

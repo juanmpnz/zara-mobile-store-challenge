@@ -1,7 +1,4 @@
-import {
-  useCartActions,
-  useCartState,
-} from '@/features/cart/context/cartContext';
+import { useCartActions, useCartState } from '@/features/cart/context/cartContext';
 import { CartItem } from '@/features/cart/components/CartItem/CartItem';
 import { CartSummary } from '@/features/cart/components/CartSummary/CartSummary';
 

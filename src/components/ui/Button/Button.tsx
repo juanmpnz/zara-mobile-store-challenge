@@ -10,23 +10,11 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   size?: ButtonSize;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
-    {
-      className,
-      size = 'medium',
-      type = 'button',
-      variant = 'primary',
-      ...buttonProps
-    },
-    ref,
-  ) {
-    const classes = [styles.button, styles[variant], styles[size], className]
-      .filter(Boolean)
-      .join(' ');
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { className, size = 'medium', type = 'button', variant = 'primary', ...buttonProps },
+  ref,
+) {
+  const classes = [styles.button, styles[variant], styles[size], className].filter(Boolean).join(' ');
 
-    return (
-      <button ref={ref} type={type} className={classes} {...buttonProps} />
-    );
-  },
-);
+  return <button ref={ref} type={type} className={classes} {...buttonProps} />;
+});

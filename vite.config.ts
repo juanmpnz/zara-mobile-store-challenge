@@ -7,10 +7,7 @@ export default defineConfig({
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
-  plugins: [
-    tanstackRouter({ target: 'react', autoCodeSplitting: true }),
-    react(),
-  ],
+  plugins: [tanstackRouter({ target: 'react', autoCodeSplitting: true }), react()],
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],

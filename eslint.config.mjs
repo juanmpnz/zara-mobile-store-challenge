@@ -16,10 +16,7 @@ export default tseslint.config(
   },
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-    ],
+    extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -44,19 +41,13 @@ export default tseslint.config(
           ],
         },
       ],
-      'react-refresh/only-export-components': [
-        'error',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
     },
   },
   {
     files: ['src/routes/**/*.tsx'],
     rules: {
-      'react-refresh/only-export-components': [
-        'error',
-        { allowConstantExport: true, allowExportNames: ['Route'] },
-      ],
+      'react-refresh/only-export-components': ['error', { allowConstantExport: true, allowExportNames: ['Route'] }],
     },
   },
   {

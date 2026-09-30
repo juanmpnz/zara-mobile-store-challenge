@@ -1,14 +1,7 @@
 import { useState } from 'react';
-import {
-  Button,
-  type ButtonSize,
-  type ButtonVariant,
-} from '@/components/ui/Button/Button';
+import { Button, type ButtonSize, type ButtonVariant } from '@/components/ui/Button/Button';
 import { SearchInput } from '@/components/ui/SearchInput/SearchInput';
-import {
-  SelectionGroupItem,
-  SelectionGroupRoot,
-} from '@/components/ui/SelectionGroup/SelectionGroup';
+import { SelectionGroupItem, SelectionGroupRoot } from '@/components/ui/SelectionGroup/SelectionGroup';
 import { ProductGrid } from '@/features/products/components/ProductGrid/ProductGrid';
 import type { ProductSummary } from '@/features/products/model/product';
 
@@ -39,10 +32,8 @@ const BUTTON_STATES = [
   { label: 'Disabled', previewState: 'disabled', disabled: true },
 ];
 
-const SAMSUNG_IMAGE =
-  'http://prueba-tecnica-api-tienda-moviles.onrender.com/images/SMG-S24U-titanium-violet.webp';
-const XIAOMI_IMAGE =
-  'http://prueba-tecnica-api-tienda-moviles.onrender.com/images/XMI-14-negro.webp';
+const SAMSUNG_IMAGE = 'http://prueba-tecnica-api-tienda-moviles.onrender.com/images/SMG-S24U-titanium-violet.webp';
+const XIAOMI_IMAGE = 'http://prueba-tecnica-api-tienda-moviles.onrender.com/images/XMI-14-negro.webp';
 
 const PRODUCT_FIXTURES = [
   {
@@ -92,10 +83,7 @@ export function DesignSystemPage() {
       <header className={styles.intro}>
         <p className={styles.eyebrow}>Zara mobile store</p>
         <h1 className={styles.title}>Design system</h1>
-        <p className={styles.lede}>
-          Visual validation surface for typography, interaction states, and
-          shared accessible primitives.
-        </p>
+        <p className={styles.lede}>Visual validation surface for typography, interaction states, and shared accessible primitives.</p>
       </header>
 
       <section className={styles.section} aria-labelledby="typography-title">
@@ -143,21 +131,13 @@ export function DesignSystemPage() {
           <p className={styles.index}>02</p>
           <h2 id="buttons-title">Button</h2>
         </div>
-        <div
-          className={styles.buttonTable}
-          role="table"
-          aria-label="Button variants"
-        >
+        <div className={styles.buttonTable} role="table" aria-label="Button variants">
           <div className={styles.buttonRow} role="row">
             <p className={styles.columnLabel} role="columnheader">
               Feedback / state
             </p>
             {BUTTON_CONFIGURATIONS.map(({ label }, index) => (
-              <p
-                className={styles.columnLabel}
-                role="columnheader"
-                key={`${label}-${index}`}
-              >
+              <p className={styles.columnLabel} role="columnheader" key={`${label}-${index}`}>
                 {label}
               </p>
             ))}
@@ -170,22 +150,20 @@ export function DesignSystemPage() {
                   <p className={styles.rowLabel} role="rowheader">
                     {label}
                   </p>
-                  {BUTTON_CONFIGURATIONS.map(
-                    ({ label: configurationLabel, size }, index) => (
-                      <Button
-                        aria-label={`${feedbackLabel}, ${label}, ${configurationLabel}`}
-                        className={styles.figmaButton}
-                        data-feedback={variant}
-                        data-preview-state={previewState}
-                        disabled={disabled}
-                        key={`${configurationLabel}-${index}`}
-                        size={size}
-                        variant={variant}
-                      >
-                        Button
-                      </Button>
-                    ),
-                  )}
+                  {BUTTON_CONFIGURATIONS.map(({ label: configurationLabel, size }, index) => (
+                    <Button
+                      aria-label={`${feedbackLabel}, ${label}, ${configurationLabel}`}
+                      className={styles.figmaButton}
+                      data-feedback={variant}
+                      data-preview-state={previewState}
+                      disabled={disabled}
+                      key={`${configurationLabel}-${index}`}
+                      size={size}
+                      variant={variant}
+                    >
+                      Button
+                    </Button>
+                  ))}
                 </div>
               ))}
             </div>
@@ -201,37 +179,19 @@ export function DesignSystemPage() {
         <div className={styles.componentGrid}>
           <div className={`${styles.example} ${styles.searchReference}`}>
             <p className={styles.rowLabel}>Empty</p>
-            <SearchInput
-              label="Empty search example"
-              value={emptySearch}
-              onValueChange={setEmptySearch}
-            />
+            <SearchInput label="Empty search example" value={emptySearch} onValueChange={setEmptySearch} />
           </div>
           <div className={`${styles.example} ${styles.searchReference}`}>
             <p className={styles.rowLabel}>Filled</p>
-            <SearchInput
-              label="Filled search example"
-              value={search}
-              onValueChange={setSearch}
-            />
+            <SearchInput label="Filled search example" value={search} onValueChange={setSearch} />
           </div>
           <div className={`${styles.example} ${styles.searchReference}`}>
             <p className={styles.rowLabel}>Disabled</p>
-            <SearchInput
-              label="Disabled search example"
-              value="Samsung"
-              disabled
-              onValueChange={() => undefined}
-            />
+            <SearchInput label="Disabled search example" value="Samsung" disabled onValueChange={() => undefined} />
           </div>
           <div className={`${styles.example} ${styles.searchReference}`}>
             <p className={styles.rowLabel}>Read only</p>
-            <SearchInput
-              label="Read-only search example"
-              value="Google Pixel"
-              readOnly
-              onValueChange={() => undefined}
-            />
+            <SearchInput label="Read-only search example" value="Google Pixel" readOnly onValueChange={() => undefined} />
           </div>
         </div>
       </section>
@@ -244,11 +204,7 @@ export function DesignSystemPage() {
         <div className={styles.componentGrid}>
           <div className={styles.example}>
             <p className={styles.rowLabel}>Interactive</p>
-            <SelectionGroupRoot
-              label="Storage size"
-              value={storage}
-              onValueChange={setStorage}
-            >
+            <SelectionGroupRoot label="Storage size" value={storage} onValueChange={setStorage}>
               <SelectionGroupItem className={styles.storageOption} value="128">
                 128 GB
               </SelectionGroupItem>
@@ -262,19 +218,11 @@ export function DesignSystemPage() {
           </div>
           <div className={styles.example}>
             <p className={styles.rowLabel}>Disabled option</p>
-            <SelectionGroupRoot
-              label="Disabled storage example"
-              value="128"
-              onValueChange={() => undefined}
-            >
+            <SelectionGroupRoot label="Disabled storage example" value="128" onValueChange={() => undefined}>
               <SelectionGroupItem className={styles.storageOption} value="128">
                 128 GB
               </SelectionGroupItem>
-              <SelectionGroupItem
-                className={styles.storageOption}
-                value="256"
-                disabled
-              >
+              <SelectionGroupItem className={styles.storageOption} value="256" disabled>
                 256 GB
               </SelectionGroupItem>
             </SelectionGroupRoot>
@@ -288,10 +236,7 @@ export function DesignSystemPage() {
           <h2 id="products-title">Product cards</h2>
         </div>
         <div className={styles.productGridExample}>
-          <ProductGrid
-            products={PRODUCT_FIXTURES}
-            label="Product card visual examples"
-          />
+          <ProductGrid products={PRODUCT_FIXTURES} label="Product card visual examples" />
         </div>
       </section>
     </div>

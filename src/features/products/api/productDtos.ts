@@ -81,38 +81,19 @@ function isProductSpecsDto(value: unknown): value is ProductSpecsDto {
 }
 
 function isProductColorDto(value: unknown): value is ProductColorDto {
-  return (
-    isRecord(value) &&
-    hasOptionalString(value, 'name') &&
-    hasOptionalString(value, 'hexCode') &&
-    hasOptionalString(value, 'imageUrl')
-  );
+  return isRecord(value) && hasOptionalString(value, 'name') && hasOptionalString(value, 'hexCode') && hasOptionalString(value, 'imageUrl');
 }
 
 function isProductStorageDto(value: unknown): value is ProductStorageDto {
-  return (
-    isRecord(value) &&
-    hasOptionalString(value, 'capacity') &&
-    hasOptionalNumber(value, 'price')
-  );
+  return isRecord(value) && hasOptionalString(value, 'capacity') && hasOptionalNumber(value, 'price');
 }
 
-function hasOptionalObject(
-  record: UnknownRecord,
-  key: string,
-  guard: (value: unknown) => boolean,
-): boolean {
+function hasOptionalObject(record: UnknownRecord, key: string, guard: (value: unknown) => boolean): boolean {
   return !(key in record) || guard(record[key]);
 }
 
-function hasOptionalArray(
-  record: UnknownRecord,
-  key: string,
-  guard: (value: unknown) => boolean,
-): boolean {
-  return (
-    !(key in record) || (Array.isArray(record[key]) && record[key].every(guard))
-  );
+function hasOptionalArray(record: UnknownRecord, key: string, guard: (value: unknown) => boolean): boolean {
+  return !(key in record) || (Array.isArray(record[key]) && record[key].every(guard));
 }
 
 function isProductDetailDto(value: unknown): value is ProductDetailDto {

@@ -5,11 +5,7 @@ import type { PropsWithChildren } from 'react';
 import { afterEach, beforeEach, expect, test } from 'vitest';
 import { server } from '@/test/msw/server';
 import { productSummaryFixture, testApiUrl } from '@/test/msw/handlers';
-import {
-  productKeys,
-  productsQueryOptions,
-  useProductsQuery,
-} from './productQueries';
+import { productKeys, productsQueryOptions, useProductsQuery } from './productQueries';
 
 let client: QueryClient;
 
@@ -56,9 +52,7 @@ test('separates server results by search, limit and offset', async () => {
 
 test('normalizes default list identity and separates detail identities', () => {
   expect(productKeys.list()).toEqual(productKeys.list({ limit: 20 }));
-  expect(productKeys.detail('phone-1')).not.toEqual(
-    productKeys.detail('phone-2'),
-  );
+  expect(productKeys.detail('phone-1')).not.toEqual(productKeys.detail('phone-2'));
 });
 
 test('shares one request between identical active query consumers', async () => {
@@ -83,9 +77,7 @@ test('shares one request between identical active query consumers', async () => 
   });
   expect(requests).toBe(1);
   expect(result.current.first.data).toEqual(result.current.second.data);
-  expect(result.current.first.data?.[0]?.image).toBe(
-    productSummaryFixture.imageUrl,
-  );
+  expect(result.current.first.data?.[0]?.image).toBe(productSummaryFixture.imageUrl);
 });
 
 test('cancelling a query aborts its pending HTTP request', async () => {

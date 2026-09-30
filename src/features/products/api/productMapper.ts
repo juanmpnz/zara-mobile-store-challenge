@@ -1,17 +1,5 @@
-import type {
-  ProductColorDto,
-  ProductDetailDto,
-  ProductSpecsDto,
-  ProductStorageDto,
-  ProductSummaryDto,
-} from './productDtos';
-import type {
-  ProductColor,
-  ProductDetail,
-  ProductSpecifications,
-  ProductStorage,
-  ProductSummary,
-} from '@/features/products/model/product';
+import type { ProductColorDto, ProductDetailDto, ProductSpecsDto, ProductStorageDto, ProductSummaryDto } from './productDtos';
+import type { ProductColor, ProductDetail, ProductSpecifications, ProductStorage, ProductSummary } from '@/features/products/model/product';
 
 export function mapProductSummary(dto: ProductSummaryDto): ProductSummary {
   return {

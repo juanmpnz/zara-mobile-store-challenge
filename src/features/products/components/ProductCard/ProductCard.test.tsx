@@ -1,10 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {
-  createRootRoute,
-  createRouter,
-  createMemoryHistory,
-  RouterProvider,
-} from '@tanstack/react-router';
+import { createRootRoute, createRouter, createMemoryHistory, RouterProvider } from '@tanstack/react-router';
 import { expect, test } from 'vitest';
 import type { ProductSummary } from '@/features/products/model/product';
 import { ProductCard } from './ProductCard';
@@ -30,9 +25,7 @@ test('presents domain content with meaningful image text, EUR price and a detail
   expect(await screen.findByText('Example Phone')).toBeVisible();
   expect(screen.getByText('Example', { exact: true })).toBeVisible();
   expect(screen.getByText('550 EUR')).toBeVisible();
-  expect(
-    screen.getByRole('img', { name: 'Example Example Phone' }),
-  ).toHaveAttribute('src', '/phone.webp');
+  expect(screen.getByRole('img', { name: 'Example Example Phone' })).toHaveAttribute('src', '/phone.webp');
   expect(screen.getByRole('link')).toHaveAttribute('href', '/products/phone-1');
 });
 

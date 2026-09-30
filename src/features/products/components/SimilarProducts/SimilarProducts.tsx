@@ -24,10 +24,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
 
   function syncIndicator(rail: HTMLUListElement) {
     const maximumScroll = rail.scrollWidth - rail.clientWidth;
-    const width =
-      rail.scrollWidth > 0
-        ? Math.min(100, (rail.clientWidth / rail.scrollWidth) * 100)
-        : 100;
+    const width = rail.scrollWidth > 0 ? Math.min(100, (rail.clientWidth / rail.scrollWidth) * 100) : 100;
     const progress = maximumScroll > 0 ? rail.scrollLeft / maximumScroll : 0;
     setIndicator({ left: progress * (100 - width), width });
   }
@@ -38,10 +35,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
     const update = () => syncIndicator(rail);
     update();
     rail.addEventListener('scroll', update, { passive: true });
-    const resizeObserver =
-      typeof ResizeObserver === 'undefined'
-        ? undefined
-        : new ResizeObserver(update);
+    const resizeObserver = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(update);
     resizeObserver?.observe(rail);
     window.addEventListener('resize', update);
     return () => {
@@ -103,9 +97,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
     const availableTravel = scrollbar.clientWidth - thumbWidth;
     if (maximumScroll <= 0 || availableTravel <= 0) return;
     const distance = event.clientX - scrollbarStartX.current;
-    rail.scrollLeft =
-      scrollbarStartScroll.current +
-      distance * (maximumScroll / availableTravel);
+    rail.scrollLeft = scrollbarStartScroll.current + distance * (maximumScroll / availableTravel);
     syncIndicator(rail);
   }
 
@@ -141,16 +133,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
         onPointerCancel={finishDragging}
       >
         {products.map((product) => (
-          <li
-            className={styles.item}
-            key={[
-              product.id,
-              product.brand,
-              product.name,
-              product.basePrice,
-              product.image,
-            ].join('|')}
-          >
+          <li className={styles.item} key={[product.id, product.brand, product.name, product.basePrice, product.image].join('|')}>
             <ProductCard product={product} />
           </li>
         ))}
@@ -165,10 +148,7 @@ export function SimilarProducts({ products }: SimilarProductsProps) {
         onPointerUp={finishScrollbarDragging}
         onPointerCancel={finishScrollbarDragging}
       >
-        <span
-          className={styles.scrollbarThumb}
-          style={{ left: `${indicator.left}%`, width: `${indicator.width}%` }}
-        />
+        <span className={styles.scrollbarThumb} style={{ left: `${indicator.left}%`, width: `${indicator.width}%` }} />
       </div>
     </section>
   );

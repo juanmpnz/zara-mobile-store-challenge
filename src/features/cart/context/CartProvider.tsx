@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  type PropsWithChildren,
-} from 'react';
+import { useCallback, useEffect, useMemo, useReducer, type PropsWithChildren } from 'react';
 import {
   cartReducer,
   createCartLine,
@@ -14,22 +8,14 @@ import {
   type CartState,
 } from '@/features/cart/model/cart';
 import { loadCart, saveCart } from '@/features/cart/storage/cartStorage';
-import {
-  CartContextBoundary,
-  type CartActionsValue,
-  type CartStateValue,
-} from './cartContext';
+import { CartContextBoundary, type CartActionsValue, type CartStateValue } from './cartContext';
 
 function initializeCartState(): CartState {
   return { items: loadCart() };
 }
 
 export function CartProvider({ children }: PropsWithChildren) {
-  const [cart, dispatch] = useReducer(
-    cartReducer,
-    undefined,
-    initializeCartState,
-  );
+  const [cart, dispatch] = useReducer(cartReducer, undefined, initializeCartState);
 
   useEffect(() => {
     saveCart(cart.items);
@@ -56,10 +42,7 @@ export function CartProvider({ children }: PropsWithChildren) {
     }),
     [cart.items],
   );
-  const actions = useMemo<CartActionsValue>(
-    () => ({ addItem, removeItem, clearCart }),
-    [addItem, removeItem, clearCart],
-  );
+  const actions = useMemo<CartActionsValue>(() => ({ addItem, removeItem, clearCart }), [addItem, removeItem, clearCart]);
 
   return (
     <CartContextBoundary state={state} actions={actions}>

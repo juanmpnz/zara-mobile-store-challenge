@@ -1,8 +1,5 @@
 import { apiRequest } from '@/lib/api/httpClient';
-import type {
-  ProductDetail,
-  ProductSummary,
-} from '@/features/products/model/product';
+import type { ProductDetail, ProductSummary } from '@/features/products/model/product';
 import { parseProductDetailDto, parseProductSummaryDtos } from './productDtos';
 import { mapProductDetail, mapProductSummary } from './productMapper';
 
@@ -24,9 +21,7 @@ export interface ProductRequestOptions {
   signal?: AbortSignal;
 }
 
-export function normalizeProductsParams(
-  params: GetProductsParams = {},
-): NormalizedProductsParams {
+export function normalizeProductsParams(params: GetProductsParams = {}): NormalizedProductsParams {
   return {
     search: params.search,
     limit: params.limit ?? DEFAULT_PRODUCT_LIMIT,
@@ -34,10 +29,7 @@ export function normalizeProductsParams(
   };
 }
 
-export async function getProducts(
-  params: GetProductsParams = {},
-  options: ProductRequestOptions = {},
-): Promise<ProductSummary[]> {
+export async function getProducts(params: GetProductsParams = {}, options: ProductRequestOptions = {}): Promise<ProductSummary[]> {
   const normalized = normalizeProductsParams(params);
   const response = await apiRequest('/products', {
     query: {
@@ -51,14 +43,8 @@ export async function getProducts(
   return parseProductSummaryDtos(response).map(mapProductSummary);
 }
 
-export async function getProductById(
-  productId: string,
-  options: ProductRequestOptions = {},
-): Promise<ProductDetail> {
-  const response = await apiRequest(
-    `/products/${encodeURIComponent(productId)}`,
-    { signal: options.signal },
-  );
+export async function getProductById(productId: string, options: ProductRequestOptions = {}): Promise<ProductDetail> {
+  const response = await apiRequest(`/products/${encodeURIComponent(productId)}`, { signal: options.signal });
 
   return mapProductDetail(parseProductDetailDto(response));
 }

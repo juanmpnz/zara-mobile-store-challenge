@@ -71,11 +71,7 @@ export function loadCart(): CartLine[] {
 
     const persisted: unknown = JSON.parse(serialized);
 
-    if (
-      !isRecord(persisted) ||
-      persisted.version !== CART_STORAGE_VERSION ||
-      !Array.isArray(persisted.items)
-    ) {
+    if (!isRecord(persisted) || persisted.version !== CART_STORAGE_VERSION || !Array.isArray(persisted.items)) {
       return [];
     }
 

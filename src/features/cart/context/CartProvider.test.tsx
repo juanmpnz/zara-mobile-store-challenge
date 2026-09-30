@@ -16,9 +16,7 @@ const secondId = '00000000-0000-4000-8000-000000000002';
 
 beforeEach(() => {
   localStorage.clear();
-  vi.spyOn(crypto, 'randomUUID')
-    .mockReturnValueOnce(firstId)
-    .mockReturnValueOnce(secondId);
+  vi.spyOn(crypto, 'randomUUID').mockReturnValueOnce(firstId).mockReturnValueOnce(secondId);
 });
 afterEach(() => {
   vi.restoreAllMocks();
@@ -51,10 +49,7 @@ test('adds duplicate selections with independent IDs, removes one, and clears wi
     result.current.actions.addItem(selection);
     result.current.actions.addItem(selection);
   });
-  expect(result.current.state.items.map((item) => item.id)).toEqual([
-    firstId,
-    secondId,
-  ]);
+  expect(result.current.state.items.map((item) => item.id)).toEqual([firstId, secondId]);
   expect(result.current.state.itemCount).toBe(2);
   expect(result.current.state.total).toBe(1100);
   expect(JSON.parse(localStorage.getItem(key) ?? '')).toEqual({
@@ -103,13 +98,8 @@ test('keeps in-memory additions and removals usable after storage writes fail', 
   expect(result.current.state.items).toEqual([]);
 });
 
-test.each([useCartState, useCartActions])(
-  'rejects a context hook outside CartProvider',
-  (hook) => {
-    // React reports the intentionally thrown render error to the console.
-    vi.spyOn(console, 'error').mockImplementation(() => undefined);
-    expect(() => renderHook(() => hook())).toThrow(
-      'must be used within CartProvider',
-    );
-  },
-);
+test.each([useCartState, useCartActions])('rejects a context hook outside CartProvider', (hook) => {
+  // React reports the intentionally thrown render error to the console.
+  vi.spyOn(console, 'error').mockImplementation(() => undefined);
+  expect(() => renderHook(() => hook())).toThrow('must be used within CartProvider');
+});
