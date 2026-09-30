@@ -35,12 +35,12 @@ The application includes a real API-backed catalog, search, product configuratio
 - ESLint
 - Prettier
 
-Dependencies are pinned to exact versions for reproducible installs and Node 18 compatibility.
+Dependencies are pinned to exact versions for reproducible installs and Node 24 compatibility.
 
 ## Requirements
 
-- Node.js **18.20.8**
-- npm **10.8.2**
+- Node.js **24.21.0**
+- npm **11.19.0**
 
 The repository includes an `.nvmrc`.
 
@@ -48,7 +48,7 @@ The repository includes an `.nvmrc`.
 nvm use
 ```
 
-The project has been validated against Node 18.20.8. Using another Node major may cause tooling incompatibilities.
+The project has been validated against Node 24.21.0. Using another Node major may cause tooling incompatibilities.
 
 ## Getting started
 
